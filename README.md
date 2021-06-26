@@ -2,6 +2,8 @@
 
 Sterowanie dokonujemy wysyłając komendy do tablicy, używamy do tego połączenia lan oraz protokołu udp/ip. W dowolnym języku programowania możemy utworzyć takie połączenie używając tak zwanych socketów. Możemy też użyć komendy "nc" (programu netcat) w terminalu linux oraz windows do wysyłania komend bez tworzenia żadnego dodatkowego oprogramowania.
 
+### Komendy wysyłane do urządzenia:
+
 - Sterowanie treścią tablicy  
 	JSONPAGE: <_content_>  
 	przykład1:  
