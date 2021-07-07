@@ -21,3 +21,9 @@ Jeżeli ekran posiada uszkodzoną kartę pamięci lub niesprawną sieć albo wys
 - Wsunąć kartę/karty pamięci do ekranu w zapamiętanej kolejności.
 - Włączyć ekran.
 - Odczekać kilkanaście sekund.
+
+## Kontakt
+
+Arkadiusz Gil  
+e-mail: voland83@gmail.com  
+tel: 790597322  
