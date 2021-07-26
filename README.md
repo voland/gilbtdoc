@@ -61,7 +61,8 @@ Przykład wysłania komendy "RESET" do tablicy drogą tcp/ip przy pomocy konsoli
  - Wysyłanie dowolnego pliku na kartę pamięci tablicy.  
  W celu wysłania pliku na tablicę led, należy otworzyć dwa połączenia, połączenie do wysłania komendy oraz do wysłania danych, podobnie jak ma to miejsce w przypadku komunikacji FTP. Po otwarciu portu komend *((UID) modulo 1000)+2*, i wydaniu polecenia `send` tablica otworzy port o numerze *((UID) modulo 1000)+3* na, który można wysłać dane, po czym zamknąć oba połączenia. 
 
- - Jeżeli wysłany powyższą metodą plik będzie posiadał nazwę "rgb_cm4.frm" zostanie on potraktowany jako nowy firmware tablicy i tablica zresetuje się celem zaktualizowania oprogramowania.
+- Jeżeli wysłany powyższą metodą plik będzie posiadał nazwę "rgb_cm4.frm" zostanie on potraktowany jako nowy firmware tablicy i tablica zresetuje się celem zaktualizowania oprogramowania.
+
 Przykładowy skrypt shell "flash.sh" do wysłania pliku firmware.
 
 >`PORT1=$(($2+0)`  
@@ -71,7 +72,7 @@ Przykładowy skrypt shell "flash.sh" do wysłania pliku firmware.
 >`printf "Sending firmware file`  
 >`nc -w 5 $1 $PORT2 < $`  
 
-Parametr -w określa wartość czasu jaki netcat ma czekać do przedawnienia połączenia w przypadku braku odpowiedzi tablicy.  
+    Parametr -w określa wartość czasu jaki netcat ma czekać do przedawnienia połączenia w przypadku braku odpowiedzi tablicy.  
 
 Wywołanie skryptu może wyglądać następująco:  
 `./flash.sh 192.168.1.12 8454 rgb_cm4.frm`  
