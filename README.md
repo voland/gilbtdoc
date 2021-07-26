@@ -52,9 +52,9 @@ przykład2 ( w tym przypadku plik data.txt zawiera treść z przykładu 1. Port 
 
 ### Sterowanie tablicą poprzez połączenie tcp/ip ( dane json powyżej 1,5kb )
 
-- Ponieważ sercem tablicy led jest płytka z mikrokontrolerem a te posiadają swoje ograniczenia, tablica nie przyjmuje pakietów udp powyżej 1,5kb aby wysłać takie dane należy zrobić poprzez połączenie tcp/ip.  
+Ponieważ sercem tablicy led jest płytka z mikrokontrolerem a te posiadają swoje ograniczenia, tablica nie przyjmuje pakietów udp powyżej 1,5kb aby wysłać takie dane należy zrobić poprzez połączenie tcp/ip.  
 
-- Wszystkie komendy, które można wysłać drogą udp/ip można również wysłać drogą tcp/ip aby to zrobić należy znać numer otwartego portu tcp danej tablicy, numer portu wyznacza się wedle wzoru ((UID) modulo 10000)+2, dla tablicy o znanym numerze uid 5308452 port wynosi: 8452+2 = 8454. ( Numer UID to stały numer seryjny sterownika osobny dla każdej tablicy). Podobnie jak w przypadku wysyłania drogą udp można korzystać bibliotek socketów dowolnego języka programowania lub wysłać dane przy pomocy programu netcat (komendy nc w konsoli linux).  
+Wszystkie komendy, które można wysłać drogą udp/ip można również wysłać drogą tcp/ip aby to zrobić należy znać numer otwartego portu tcp danej tablicy, numer portu wyznacza się wedle wzoru ((UID) modulo 10000)+2, dla tablicy o znanym numerze uid 5308452 port wynosi: 8452+2 = 8454. ( Numer UID to stały numer seryjny sterownika osobny dla każdej tablicy). Podobnie jak w przypadku wysyłania drogą udp można korzystać bibliotek socketów dowolnego języka programowania lub wysłać dane przy pomocy programu netcat (komendy nc w konsoli linux).  
 
 Przykład wysłania komendy "RESET" do tablicy drogą tcp/ip przy pomocy konsoli bash/linux:  
 `printf "RESET" | nc -w 2 192.168.1.12 8454`  
@@ -62,7 +62,7 @@ Przykład wysłania komendy "RESET" do tablicy drogą tcp/ip przy pomocy konsoli
  - Wysyłanie dowolnego pliku na kartę pamięci tablicy.  
  W celu wysłania pliku na tablicę led, podobnie jak ma to miejsce w przypadku komunikacji ftp, należy otworzyć dwa połączenia, połączenie do wysłania komendy oraz do wysłania danych. Po otwarciu portu komend *((UID) modulo 10000)+2*, i wydaniu polecenia `send` tablica otworzy port o numerze *((UID) modulo 10000)+3* na, który można wysłać dane, po czym zamknąć oba połączenia. 
 
-- Jeżeli wysłany powyższą metodą plik będzie posiadał nazwę "rgb_cm4.frm" zostanie on potraktowany jako nowy firmware tablicy i tablica zresetuje się celem zaktualizowania oprogramowania.
+Jeżeli wysłany powyższą metodą plik będzie posiadał nazwę "rgb_cm4.frm" zostanie on potraktowany jako nowy firmware tablicy i tablica zresetuje się celem zaktualizowania oprogramowania.
 
 Przykładowy skrypt shell "flash.sh" do wysłania pliku firmware.
 
