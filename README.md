@@ -59,7 +59,7 @@ Wszystkie komendy, które można wysłać drogą udp/ip można również wysła�
 Przykład wysłania komendy "RESET" do tablicy drogą tcp/ip przy pomocy konsoli bash/linux:  
 `printf "RESET" | nc -w 2 192.168.1.12 8454`  
 
- - Wysyłanie dowolnego pliku na kartę pamięci tablicy.  
+Wysyłanie dowolnego pliku na kartę pamięci tablicy.  
  W celu wysłania pliku na tablicę led, podobnie jak ma to miejsce w przypadku komunikacji ftp, należy otworzyć dwa połączenia, połączenie do wysłania komendy oraz do wysłania danych. Po otwarciu portu komend *((UID) modulo 10000)+2*, i wydaniu polecenia `send` tablica otworzy port o numerze *((UID) modulo 10000)+3* na, który można wysłać dane, po czym zamknąć oba połączenia. 
 
 Jeżeli wysłany powyższą metodą plik będzie posiadał nazwę "rgb_cm4.frm" zostanie on potraktowany jako nowy firmware tablicy i tablica zresetuje się celem zaktualizowania oprogramowania.
