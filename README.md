@@ -62,7 +62,7 @@ Przykład wysłania komendy "RESET" do tablicy drogą tcp/ip przy pomocy konsoli
  W celu wysłania pliku na tablicę led, należy otworzyć dwa połączenia, połączenie do wysłania komendy oraz do wysłania danych, podobnie jak ma to miejsce w przypadku komunikacji FTP. Po otwarciu portu komend *((UID) modulo 1000)+2*, i wydaniu polecenia `send` tablica otworzy port o numerze *((UID) modulo 1000)+3* na, który można wysłać dane, po czym zamknąć oba połączenia. 
 
  - Jeżeli wysłany powyższą metodą plik będzie posiadał nazwę "rgb_cm4.frm" zostanie on potraktowany jako nowy firmware tablicy i tablica zresetuje się celem zaktualizowania oprogramowania.
- >Przykładowy skrypt shell "flash.sh" do wysłania pliku firmware.
+Przykładowy skrypt shell "flash.sh" do wysłania pliku firmware.
 
 >`PORT1=$(($2+0)`  
 >`PORT2=$(($2+1)`  
@@ -71,13 +71,13 @@ Przykład wysłania komendy "RESET" do tablicy drogą tcp/ip przy pomocy konsoli
 >`printf "Sending firmware file`  
 >`nc -w 5 $1 $PORT2 < $`  
 
-> Parametr -w określa wartość czasu jaki netcat ma czekać do przedawnienia połączenia w przypadku braku odpowiedzi tablicy.  
+Parametr -w określa wartość czasu jaki netcat ma czekać do przedawnienia połączenia w przypadku braku odpowiedzi tablicy.  
 
->Wywołanie skryptu może wyglądać następująco:  
+Wywołanie skryptu może wyglądać następująco:  
 `./flash.sh 192.168.1.12 8454 rgb_cm4.frm`  
 
->#### Wysyłanie danych do wyświetlenia drogą tcp/ip
->Aby wysłać dane json przekraczające 1,5kb należy skorzystać z metody podobnej jak w przypadku wysyłania pliku, tyle że stosujemy komendę *page* zamiast *send*. Aby wysłać plik page.json o przykładowej zawartości:  
+#### Wysyłanie danych do wyświetlenia drogą tcp/ip
+Aby wysłać dane json przekraczające 1,5kb należy skorzystać z metody podobnej jak w przypadku wysyłania pliku, tyle że stosujemy komendę *page* zamiast *send*. Aby wysłać plik page.json o przykładowej zawartości:  
 
 >`{"ver":1,"elements":[{"color":127,"width":120,"height":220,"type":"rectangle","x":0,"y":0},`  
 >`{"content":"linia1","color":-65536,"fontsize":8,"fonttype":1,"type":"line","x":40,"y":8},`  
@@ -92,7 +92,7 @@ Przykład wysłania komendy "RESET" do tablicy drogą tcp/ip przy pomocy konsoli
 >`{"content":"Linia11","color":65280,"fontsize":16,"fonttype":2,"type":"line","x":0,"y":0}]}`  
 
 
->Należy uruchomić skrypt "upload_page.sh" o treści:
+Należy uruchomić skrypt "upload_page.sh" o treści:
 
 >`PORT1=$(($2+0))`  
 >`PORT2=$(($2+1))`  
@@ -101,7 +101,7 @@ Przykład wysłania komendy "RESET" do tablicy drogą tcp/ip przy pomocy konsoli
 >`printf "Sending page..."`  
 >`nc -w 2 $1 $PORT2 < $3`  
 
->Wywołanie skryptu może wyglądać następująco:  
+Wywołanie skryptu może wyglądać następująco:  
 `./upload_page.sh 192.168.1.12 8454 page.json`  
 
 ## Pobieranie konfiguracji sterownika
