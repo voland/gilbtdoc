@@ -55,6 +55,7 @@ przykład2 ( w tym przypadku plik data.txt zawiera treść z przykładu 1. Port 
 - Ponieważ sercem tablicy led jest płytka z mikrokontrolerem a te posiadają swoje ograniczenia, tablica nie przyjmuje pakietów udp powyżej 1,5kb aby wysłać takie dane należy zrobić poprzez połączenie tcp/ip.  
 
 - Wszystkie komendy, które można wysłać drogą udp/ip można również wysłać drogą tcp/ip aby to zrobić należy znać numer otwartego portu tcp danej tablicy, numer portu wyznacza się wedle wzoru ((UID) modulo 1000)+2, dla tablicy o znanym numerze uid 5308452 port wynosi: 8452+2 = 8454. ( Numer UID to stały numer seryjny sterownika osobny dla każdej tablicy). Podobnie jak w przypadku wysyłania drogą udp można korzystać bibliotek socketów dowolnego języka programowania lub wysłać dane przy pomocy programu netcat (komendy nc w konsoli linux).  
+
 Przykład wysłania komendy "RESET" do tablicy drogą tcp/ip przy pomocy konsoli bash/linux:  
 `printf "RESET" | nc -w 2 192.168.1.12 8452`  
 
