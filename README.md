@@ -1,3 +1,6 @@
+## Wstęp
+Niniejsza dokumentacja  jest na etapie ciągłego udoskonalania. Jeżeli cokolwiek wydaje się być niejasne lub niekompletne proszę o kontakt. Dane kotaktowe umieszczone są na dole dokumentu.
+
 ## Sterowanie tablicą GilBT rgb poprzez protokół udp/ip 
 
 Sterowanie dokonujemy wysyłając komendy do tablicy, używamy do tego połączenia lan oraz protokołu udp/ip lub tcp/ip. W dowolnym języku programowania możemy utworzyć takie połączenie używając tak zwanych socketów. Możemy też użyć komendy "nc" (programu netcat) w terminalu linux oraz windows do wysyłania komend bez tworzenia żadnego dodatkowego oprogramowania.
@@ -8,11 +11,6 @@ Sterowanie dokonujemy wysyłając komendy do tablicy, używamy do tego połącze
 	JSONPAGE: <_content_>  
 	przykład1:  
 	>`JSONPAGE:{"ver":1,"elements":[{"color":32,"width":96,"height":16,"type":"rectangle","x":0,"y":0},{"content":"2019-10-18 14:18:46","color":-65536,"fontsize":8,"fonttype":1,"type":"line","x":0,"y":0},{"content":"Tekst!","color":65280,"fontsize":16,"fonttype":2,"type":"line","x":0,"y":0}]}`
-
-	**Uwaga**, kolor podany w zmiennej integer 32bit ARGB, podstawowe czcionki to 0 i 1 fontnormal i fontfat, zestaw czcionek może być zmieniony po kontakcie z działem firmy gilbt.  
-    Przykładowo 0x00ff0000 przekonwertowany do zmiennej int oznacza kolor czerwony  
-    Przykładowo 0x0000ff00 przekonwertowany do zmiennej int oznacza kolor zielony  
-    Przykładowo 0x000000ff przekonwertowany do zmiennej int oznacza kolor niebieski  
 
 - Zmiana kontrastu/kontrastu nocnego w skali od 1-4  
 	Kontrast4!  
@@ -46,21 +44,25 @@ Sterowanie dokonujemy wysyłając komendy do tablicy, używamy do tego połącze
 Sterowanie komendą netcat może wyglądać następująco:  
 > nc -u _addressip_ _port_ < _file_with_command_  
 
+lub  
+
+> printf "*command*" | nc -u _addressip_ _port_
+
 przykład2 ( w tym przypadku plik data.txt zawiera treść z przykładu 1. Port sterowania to 8888.)  
 
 >nc -u 192.168.1.147 8888 < data.txt
 
-### Sterowanie tablicą poprzez połączenie tcp/ip ( dane json powyżej 1,5kb )
+## Sterowanie tablicą GilBT rgb poprzez protokół tcp/ip ( dane powyżej 1,5kb )
 
-Ponieważ sercem tablicy led jest płytka z mikrokontrolerem a te posiadają swoje ograniczenia, tablica nie przyjmuje pakietów udp powyżej 1,5kb aby wysłać takie dane należy zrobić poprzez połączenie tcp/ip.  
+Ponieważ sercem tablicy led jest płytka z mikrokontrolerem a te posiadają swoje ograniczenia, tablica nie przyjmuje pakietów udp wielkości powyżej 1,5kb aby wysłać takie dane należy zrobić to poprzez połączenie tcp/ip.  
 
-Wszystkie komendy, które można wysłać drogą udp/ip można również wysłać drogą tcp/ip aby to zrobić należy znać numer otwartego portu tcp danej tablicy, numer portu wyznacza się wedle wzoru ((UID) modulo 10000)+2, dla tablicy o znanym numerze uid 5308452 port wynosi: 8452+2 = 8454. ( Numer UID to stały numer seryjny sterownika osobny dla każdej tablicy). Podobnie jak w przypadku wysyłania drogą udp można korzystać bibliotek socketów dowolnego języka programowania lub wysłać dane przy pomocy programu netcat (komendy nc w konsoli linux).  
+Wszystkie komendy, które można wysłać drogą udp/ip można również wysłać drogą tcp/ip aby to zrobić należy znać numer otwartego portu tcp danej tablicy, numer portu wyznacza się wedle wzoru ((UID) modulo 10000)+2. Przykładowo dla tablicy o znanym numerze uid 5308452 port wynosi: 8452+2 = 8454. ( Numer UID to stały numer seryjny sterownika osobny dla każdej tablicy). Podobnie jak w przypadku wysyłania drogą udp można korzystać bibliotek socketów dowolnego języka programowania lub wysłać dane przy pomocy programu netcat (komendy nc w terminalu).  
 
-Przykład wysłania komendy "RESET" do tablicy drogą tcp/ip przy pomocy konsoli bash/linux:  
+Przykład wysłania komendy "RESET" do tablicy drogą tcp/ip przy pomocy terminala bash:  
 `printf "RESET" | nc -w 2 192.168.1.12 8454`  
 
 #### Wysyłanie dowolnego pliku na kartę pamięci tablicy.  
- W celu wysłania pliku na tablicę led, podobnie jak ma to miejsce w przypadku komunikacji ftp, należy otworzyć dwa połączenia, połączenie do wysłania komendy oraz do wysłania danych. Po otwarciu portu komend *((UID) modulo 10000)+2*, i wydaniu polecenia `send` tablica otworzy port o numerze *((UID) modulo 10000)+3* na, który można wysłać dane, po czym zamknąć oba połączenia. 
+ W celu wysłania pliku na tablicę led, podobnie jak ma to miejsce w przypadku komunikacji ftp, należy otworzyć dwa połączenia, połączenie do wysłania komendy oraz do wysłania danych. Po otwarciu portu komend *((UID) modulo 10000)+2*, i wydaniu polecenia `send` tablica otworzy port o numerze *((UID) modulo 10000)+3* na, który można wysłać dane, po czym należy zamknąć oba połączenia. 
 
 Jeżeli wysłany powyższą metodą plik będzie posiadał nazwę "rgb_cm4.frm" zostanie on potraktowany jako nowy firmware tablicy i tablica zresetuje się celem zaktualizowania oprogramowania.
 
@@ -73,10 +75,10 @@ Przykładowy skrypt shell "flash.sh" do wysłania pliku firmware.
 >`printf "Sending firmware file`  
 >`nc -w 5 $1 $PORT2 < $`  
 
-Parametr -w określa wartość czasu jaki netcat ma czekać do przedawnienia połączenia w przypadku braku odpowiedzi tablicy.  
+Parametr -w określa wartość czasu w sekundach jaki netcat ma czekać do przedawnienia połączenia w przypadku braku odpowiedzi serwera (tablicy).  
 
 Wywołanie skryptu może wyglądać następująco:  
-`./flash.sh 192.168.1.12 8454 rgb_cm4.frm`  
+>`./flash.sh 192.168.1.12 8454 rgb_cm4.frm`  
 
 #### Wysyłanie danych do wyświetlenia drogą tcp/ip
 Aby wysłać dane json przekraczające 1,5kb należy skorzystać z metody podobnej jak w przypadku wysyłania pliku tyle, że stosujemy komendę *page* zamiast *send*. Aby wysłać plik page.json o przykładowej zawartości:  
@@ -94,7 +96,7 @@ Aby wysłać dane json przekraczające 1,5kb należy skorzystać z metody podobn
 >`{"content":"Linia11","color":65280,"fontsize":16,"fonttype":2,"type":"line","x":0,"y":0}]}`  
 
 
-Należy uruchomić skrypt "upload_page.sh" o treści:
+Należy stworzyć skrypt "upload_page.sh" o treści:
 
 >`PORT1=$(($2+0))`  
 >`PORT2=$(($2+1))`  
@@ -104,7 +106,30 @@ Należy uruchomić skrypt "upload_page.sh" o treści:
 >`nc -w 2 $1 $PORT2 < $3`  
 
 Wywołanie skryptu może wyglądać następująco:  
-`./upload_page.sh 192.168.1.12 8454 page.json`  
+>`./upload_page.sh 192.168.1.12 8454 page.json`  
+
+## Opis formatu strony json
+1. Elementy  
+W tym momencie dostępne są tylko 2 rodzaje elementów strony:
+	* line - linia tekstu
+	* rectangle - prostokąt o wybranym rozmiarze i kolorze.
+
+1. Czcionka  
+	Jak widać w skrypcie json rodzaj czcionki określa się numerem, aktualnie można podać wartości od 0 do 3. Z czego dwie pierwsze czcionki były rysowane odręcznie i wkompilowane są w firmware, pozostałe czcionki znajdują się na karcie pamięci w postaci plików, ten drugi rodzaj czcionek był generowany automatycznie przez program i w rozmiarach poniżej 10px może być nieczytelny.
+	* 0 czcionka regular wkompilowana w firmware jej wysokość wynosi zawsze 8px niezależnie od ustawienia parametru *fontsize*
+	* 1 czcionka **bold** wkompilowana w firmware jej wysokość wynosi zawsze 8px niezależnie od ustawienia parametru *fontsize*
+	* 2 czcionka arial regular, czcionka pobrana jest z karty pamięci z pliku arialXX.rgb.fnt, gdzie XX oznacza wielkość w px
+	* 3 czcionka arial bold, czcionka pobrana jest z karty pamięci z pliku arialBXX.rgb.fnt, gdzie XX oznacza wielkość w px
+
+2. Kolor  
+	**Uwaga**, kolor podany jest w zmiennej integer 32bit ARGB.   
+    * Przykładowo 0x00ff0000 przekonwertowany do zmiennej int oznacza kolor czerwony  
+    * Przykładowo 0x0000ff00 przekonwertowany do zmiennej int oznacza kolor zielony  
+    * Przykładowo 0x000000ff przekonwertowany do zmiennej int oznacza kolor niebieski  
+
+
+W przypadku potrzeby dostępu do innych rodzajów czcionek proszę kontaktować się z autorem tekstu, adres znajduje się w stopce.
+Możliwe jest też wkompilowanie najczęściej używanej czcionki w firmware urządzenia celem optymalizacji i pominięcia karty pamięci sd, w takiej sytuacji również proszę o kontakt.
 
 ## Pobieranie konfiguracji sterownika
 Pobieranie danych konfiguracyjnych ze sterownika dokonujemy poprzez nasłuchiwanie na porcie 6001 udp/ip. Każda tablica z sterownikiem rgb dokonuje rozgłaszania informacji o własnej konfiguracji. Informacje te zawarte są w uproszczonym formacie XML, przykład takiego pakietu danych znajduje się poniżej.
@@ -134,9 +159,9 @@ Gzie poszczególne znaczniki oznaczają:
 - \<PIN\> - Dane dotyczące pin przy dostępie z pilota
 - \<Val\> - Wartość pin
 
-Na ten moment pozostałe parametry są nieistotne w kontekście realizacji projektu.
+Nasłuchiwania można dokonywać za pomocą soketów w dowolnym języku programowania bądź tak jak poprzednio za pomocą programu netcat, istotne jest aby żadna zapora sieciowa nie blokowała pakietów przychodzących na port 6001, należy tymczasowo wyłączyć firewall, lub lepiej wprowadzić odpowiednią regułę do zapory sieciowej.  
 
-Nasłuchiwania można dokonywać za pomocą soketów w dowolnym języku programowania bądź tak jak poprzednio za pomocą programu netcat, istotne jest aby żadna zapora sieciowa nie blokowała pakietów przychodzących na port 6001, należy tymczasowo wyłączyć firewall, lub lepiej wprowadzić odpowiednią regułę do zapory sieciowej.
+Nasłuchiwanie pakietów.
 > nc -ul 6001
 
 # Kontakt
