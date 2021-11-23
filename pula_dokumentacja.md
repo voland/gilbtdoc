@@ -1,6 +1,6 @@
 ﻿## Dokumentacja sterowania tablicą led firmy GilBT typ mono
 
-Tablica posiada przyłącze do sieci lan z otwartym portem 21 ftp służącym do wymiany plików na dysku SD znajdującym się w tablicy, sam protokół ftp został dodatkowo wzbogacony o kilka komend umożliwiających sterowanie treścią wyświetlaną na tablicy.  Przykładowy program klient (zawarty w tym repozytorium) program pula.exe ingeruje w to co ma wyświetlać ekran. Program pula uruchamia dwa wątki z czego pierwszy odlicza dwie zmienne dodając do nich 1 co określoną ilość milisekund, drugi wątek komunikuje się z ekranem przesyłając mu te dane.
+Tablica posiada przyłącze do sieci lan z otwartym portem 21 ftp służącym do wymiany plików na dysku SD znajdującym się w tablicy. Sam protokół ftp został dodatkowo wzbogacony o kilka komend umożliwiających sterowanie treścią wyświetlaną na tablicy.  Przykładowy program klient (zawarty w tym repozytorium) program pula.exe ingeruje w to co ma wyświetlać ekran. Program pula uruchamia dwa wątki z czego pierwszy odlicza dwie zmienne dodając do nich 1 co określoną ilość milisekund, drugi wątek komunikuje się z ekranem przesyłając mu te dane.
 
 # Przykład uruchomienia programu pula:
 	`pula <adres ip tablicy led>`
@@ -10,9 +10,9 @@ Tablica posiada przyłącze do sieci lan z otwartym portem 21 ftp służącym do
 # Przykład uruchomienia komunikacji przy pomocy programu netcat
 	Podobne sterowanie można uzyskac w kazdym języku programowania posiadający możliwość wykożystania socketów. Równierz przy pomocy polecenia nc (programu netcat) w terminalu linux.
 
-	Na przykład dla komendy "gettime"
+	Przykład wykożystania programu "nc" dla komendy "gettime"
 
-	printf "gettime" | nc -w 2 -N 192.168.1.206 21
+	`printf "gettime" | nc -w 2 -N 192.168.1.206 21`
 
 	
 
