@@ -1,20 +1,28 @@
-﻿## Dokumentacja sterowania tablicą led firmy GilBT typ mono firmware kolejkowe
+﻿## Dokumentacja sterowania tablicą led firmy GilBT typ mono
 
-#Klient w tym wypadku program pula.exe ingeruje w to co ma wyświetlać ekran. Pula uruchamia dwa wątki z czego pierwszy odlicza dwie zmienne dodając do nich 1 co określoną ilość milisekund, drugi wątek komunikuje się z ekranem przesyłając mu te dane.
+Tablica posiada przyłącze do sieci lan z otwartym portem 21 ftp służącym do wymiany plików na dysku SD znajdującym się w tablicy, sam protokół ftp został dodatkowo wzbogacony o kilka komend umożliwiających sterowanie treścią wyświetlaną na tablicy.  Przykładowy program klient (zawarty w tym repozytorium) program pula.exe ingeruje w to co ma wyświetlać ekran. Program pula uruchamia dwa wątki z czego pierwszy odlicza dwie zmienne dodając do nich 1 co określoną ilość milisekund, drugi wątek komunikuje się z ekranem przesyłając mu te dane.
 
-#Przykład uruchomienia programu pula:
-	pula <adres ip>
-	pula 192.168.1.206
+# Przykład uruchomienia programu pula:
+	`pula <adres ip tablicy led>`
+	`pula 192.168.1.206`
 
-#Poprzez socket możemy wysyłać następujące komendy
 
-	"gettime" - zwraca czas wskazywany przez zegar w sterowniku
+# Przykład uruchomienia komunikacji przy pomocy programu netcat
+	Podobne sterowanie można uzyskac w kazdym języku programowania posiadający możliwość wykożystania socketów. Równierz przy pomocy polecenia nc (programu netcat) w terminalu linux.
 
-	"money" - wyświetla tekst w trakcie slajdu "aktualne imieniny" wybór ilości wyświetlanych linijek tekstu uzależniony jest od ilości argumentów podanych w komendzie money a więc np: money "pula1" "pula2" "pula3" spowoduje wyświetlenie 3 linijek, aby wyświetlić linijkę pustą podajemy np zamiast drugiego argumentu pusty cudzysłów np. money "pula1" "" "pula2", w ekranie o wysokości 32 pixeli, możliwe jest wyświetlenie maksymalnie dwóch linijek. Argumenty muszą być podane w cudzysłowach, dopuszczalne jest wypisywanie znaków spoza zakresu znaków drukowanych ASCII (np. wydruk znaku o kodzie 0xA8 za pomocą \xA8 (hex))
+	Na przykład dla komendy "gettime"
+
+	printf "gettime" | nc -w 2 -N 192.168.1.206 21
+
+	
+
+# Poprzez socket możemy wysyłać następujące komendy:
+
+	"money" - Inicjuje zmiane wyświetlanej treści. Wybór ilości wyświetlanych linijek tekstu uzależniony jest od ilości argumentów podanych w komendzie *"money"* i makszymalnie wynosi 4. A więc np: *money "pula1" "pula2" "pula3"* spowoduje wyświetlenie 3 linijek, współrzędnie lini w osi Y dla poszególnych linii domyślnie wynodszą 0, 8, 16, 24 (licząc od góry w pikselach), aby wyświetlić linijkę pustą podajemy np zamiast drugiego argumentu pusty cudzysłów np. money "pula1" "" "pula2". Argumenty muszą być podane w cudzysłowach, dopuszczalne jest wypisywanie znaków spoza zakresu znaków drukowanych ASCII (iso-8859-2) (np. wydruk znaku o kodzie 0xA8 za pomocą \xA8 (hex))
 
 	"font" - służy do zmiany czcionki używanej przy wyświetlaniu tekstu podanego przez komendę money, jako argument podajemy nazwę pliku czcionek istniejącego w pamięci Karty SD ekranu np. font arialbold30.fnt lub nazwę jednej z dwóch wbudowanych w tablicę czcionek o wysokości 8pix, nazwy te to "FONTNORMAL" "FONTFAT"
 
-	"txtpos" - służy do zmiany orientacji tekstu wprowadzonego przez komendę money, podajemy 4 argumenty dla każdej linii z osobna:
+	"txtpos" - służy do zmiany poziomej orientacji tekstu wprowadzonego przez komendę money, podajemy 4 argumenty dla każdej linii z osobna:
 		"l" wyrównanie do lewej strony
 		"r" j.w. do prawej
 		"c" j.w. do środka
@@ -25,7 +33,7 @@
 				ustawienie 1 linii do lewej, 2 linia scroll ( prędkość 1 ), 3 linia scroll ( prędkość 3 ), 4 linia wyrównanie do środka
 
 
-	"setrowspos" - zmienia pozycje wierszy (pionowo) na te podane przy wywołaniu komendy, normalnie są one uzależnione od wysokości czcionki.
+	"setrowspos" - zmienia pozycje wierszy (pionowo) na te podane przy wywołaniu komendy.
 		przykład użycia komendy:
 			setrowspos "0" "8" "16" "24"
 			skutek:
@@ -38,23 +46,21 @@
 	"getcontrast" - zwraca aktualną jasność ekranu
 
 	"netconf" - zmienia parametry IP urządzenia np.
-		netconf "192.168.1.2" "255.255.255.0" "192.168.1.1" //powoduje zmianę na static ip=192.168.1.2 maska= 255.255.255.0 brama=192.168.1.1
+		netconf "192.168.1.2" "255.255.255.0" "192.168.1.1" //powoduje zmianę adresów na statyczne: ip=192.168.1.2 maska= 255.255.255.0 brama=192.168.1.1
 		netconf "dhcp" //powoduje włączenie przydzielania adresu poprzez system dhcp
 
-#Alternatywnie zamiast komendy money możemy wysłać bitmapę do wyświetlenia, dokonujemy tego za pomocą standardowej komendy protokołu ftp "STOR" tyle, że podajemy jako parametr nazwę pliku docelowego "image.lim" 
+	"gettime" - zwraca czas wskazywany przez zegar w sterowniku.
+
+Alternatywnie zamiast komendy money możemy wysłać bitmapę w specjalnym formacie "lim" do wyświetlenia, dokonujemy tego za pomocą standardowej komendy protokołu ftp "STOR" tyle, że podajemy jako parametr nazwę pliku docelowego "image.lim" 
+
 		czyli: 
 			STOR image.lim, program sterownika automatycznie taki plik zamiast zapisać na dysku wyświetli go na ekranie. 
 			Przykład użycia dostępny jest w programie pula (metoda SendGraphic), trzeba go tylko odkomentować i podać ścieżkę do jakiejś grafiki jedno bitowej o rozmiarze 128x32.
 
-#Warty zauważenia jest fakt, że komendy przyjmujące po więcej niż jeden argument przyjmują je w cudzysłowach.
+**Komendy przyjmujące po więcej niż jeden argument przyjmują je w cudzysłowach.**
 
-#w razie pytań proszę się kontaktować 
-			tel: 790597322 
-			e-mail: arkadiusz.gil@gitbt.com
+# Kontakt:
 
-  ____ _ _ ____ _____ 
- / ___(_) | __ )_   _|
-| |  _| | |  _ \ | |  
-| |_| | | | |_) || |  
- \____|_|_|____/ |_|  
-                      
+Arkadiusz Gil  
+e-mail: voland83@gmail.com  
+tel: 790597322  
