@@ -54,17 +54,17 @@ przykład2 ( w tym przypadku plik data.txt zawiera treść z przykładu 1. Port 
 
 ## Sterowanie tablicą GilBT rgb poprzez protokół tcp/ip ( dane powyżej 1,5kb )
 
-Ponieważ sercem tablicy led jest płytka z mikrokontrolerem a te posiadają swoje ograniczenia, tablica nie przyjmuje pakietów udp wielkości powyżej 1,5kb aby wysłać takie dane należy zrobić to poprzez połączenie tcp/ip.  
+Ponieważ sercem tablicy led jest mikrokontroler a te posiadają swoje ograniczenia, tablica nie przyjmuje pakietów udp wielkości powyżej 1,5kb jeżeli dane json page przekraczają tą wartość należy je wysłać poprzez połączenie tcp/ip.  
 
 Wszystkie komendy, które można wysłać drogą udp/ip można również wysłać drogą tcp/ip aby to zrobić należy znać numer otwartego portu tcp danej tablicy, numer portu wyznacza się wedle wzoru ((UID) modulo 10000)+2. Przykładowo dla tablicy o znanym numerze uid 5308452 port wynosi: 8452+2 = 8454. ( Numer UID to stały numer seryjny sterownika osobny dla każdej tablicy). Podobnie jak w przypadku wysyłania drogą udp można korzystać bibliotek socketów dowolnego języka programowania lub wysłać dane przy pomocy programu netcat (komendy nc w terminalu).  
 
 Przykład wysłania komendy "RESET" do tablicy drogą tcp/ip przy pomocy terminala bash:  
-`printf "RESET" | nc -w 2 192.168.1.12 8454`  
+`printf "RESET" | nc -w 2 -N 192.168.1.12 8454`  
 
 #### Wysyłanie dowolnego pliku na kartę pamięci tablicy.  
  W celu wysłania pliku na tablicę led, podobnie jak ma to miejsce w przypadku komunikacji ftp, należy otworzyć dwa połączenia, połączenie do wysłania komendy oraz do wysłania danych. Po otwarciu portu komend *((UID) modulo 10000)+2*, i wydaniu polecenia `send` tablica otworzy port o numerze *((UID) modulo 10000)+3* na, który można wysłać dane, po czym należy zamknąć oba połączenia. 
 
-Jeżeli wysłany powyższą metodą plik będzie posiadał nazwę "rgb_cm4.frm" zostanie on potraktowany jako nowy firmware tablicy i tablica zresetuje się celem zaktualizowania oprogramowania.
+Jeżeli wysłany powyższą metodą plik będzie posiadał nazwę "rgb_cm4.frm" zostanie on potraktowany jako nowy firmware tablicy i tablica po odebraniu firmware zresetuje się celem zaktualizowania oprogramowania.
 
 Przykładowy skrypt shell "flash.sh" do wysłania pliku firmware.
 
@@ -96,19 +96,30 @@ Aby wysłać dane json przekraczające 1,5kb należy skorzystać z metody podobn
 >`{"content":"Linia11","color":65280,"fontsize":16,"fonttype":2,"type":"line","x":0,"y":0}]}`  
 
 
-Należy stworzyć skrypt "upload_page.sh" o treści:
+Przykładowy skrypt bash sterowania:  
 
 >`PORT1=$(($2+0))`  
 >`PORT2=$(($2+1))`  
->`printf "page\n" | nc -w 2 $1 $PORT1 & `  
->`sleep 4 `  
+>`printf "page\n" | nc -w 2 -N $1 $PORT1 & `  
 >`printf "Sending page..."`  
->`nc -w 2 $1 $PORT2 < $3`  
+>`nc -w 2 -N $1 $PORT2 < $3`  
+>`sleep 4 `  
 
 Wywołanie skryptu może wyglądać następująco:  
 >`./upload_page.sh 192.168.1.12 8454 page.json`  
 
-## Opis formatu strony json
+Po wysłaniu komendy *page* na port komend tablica zwraca informację `Re: Expecting file json_page on port <numer portu danych>` jeśli jest gotowa odebrania nowego pakietu danych, lub `Re: DataPort is busy` jeśli poprzednie połączenie jest wciąż w toku, należy wówczas zamknąć port komend i ponowić próbę po 2 sekundach.  
+
+W trakcie transmisji na porcie danych tablica zwraca informacje o odebranych danych, przykład poniżej:  
+`DataPort: Ready to receive json_page`  
+`DataPort: Total bytes received 1460`  
+`DataPort: Total bytes received 2920`  
+`DataPort: Total bytes received 5840`  
+`DataPort: Total bytes received 7551`  
+
+ **Uwaga: Sterowanie tablicą musi odbywać się synchronicznie. Ostatnia linijka skryptu nakazuje odczekanie 4 sekund przed ponownym połączeniem. Ponieważ tablica led działa jednowątkowo nie możliwe jest obsługiwanie wielu połączeń jednocześnie, przed próbą ponownego połączenia konieczne jest odczekanie do zakończenia i zamknięcia poprzednich połączeń.**   
+
+## Opis formatu strony json  w wersji 1
 1. Elementy  
 W tym momencie dostępne są tylko 2 rodzaje elementów strony:
 	* line - linia tekstu
