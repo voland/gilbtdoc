@@ -19,7 +19,7 @@ Przykład wykożystania programu "nc" dla komendy "gettime":
 
 # Poprzez socket możemy wysyłać następujące komendy:
 
-1. **"money"** - Inicjuje zmianę wyświetlanej treści. Wybór ilości wyświetlanych linijek tekstu uzależniony jest od ilości argumentów podanych w komendzie *money* i maksymalnie wynosi 4. A więc np: *money "pula1" "pula2" "pula3"* spowoduje wyświetlenie 3 linijek, współrzędnie linii w osi Y dla poszczególnych linii domyślnie wynoszą 0, 8, 16, 24 (licząc od góry w pikselach), aby wyświetlić linijkę pustą podajemy np zamiast drugiego argumentu pusty cudzysłów np. money "pula1" "" "pula2". Argumenty muszą być podane w cudzysłowach, dopuszczalne jest wypisywanie znaków spoza zakresu znaków drukowanych ASCII (iso-8859-2) (np. wydruk znaku o kodzie 0xA8 za pomocą \xA8 (hex))
+1. **"money"** - Inicjuje zmianę wyświetlanej treści. Wybór ilości wyświetlanych linijek tekstu uzależniony jest od ilości argumentów podanych w komendzie *money* i maksymalnie wynosi 4. A więc np: *money "pula1" "pula2" "pula3"* spowoduje wyświetlenie 3 linijek, współrzędnie linii w osi pionowej poszczególnych linii domyślnie wynoszą 0, 8, 16, 24 (licząc od góry w pikselach), aby wyświetlić linijkę pustą podajemy np zamiast drugiego argumentu pusty cudzysłów np. *money "pula1" "" "pula2"*. Argumenty muszą być podane w cudzysłowach, dopuszczalne jest wypisywanie znaków spoza zakresu znaków drukowanych ASCII (iso-8859-2) (np. wydruk znaku o kodzie 0xA8 za pomocą \xA8 (hex))
 
 1. **"font"** - służy do zmiany czcionki używanej przy wyświetlaniu tekstu podanego przez komendę money, jako argument podajemy nazwę pliku czcionek istniejącego w pamięci Karty SD ekranu np. font arialbold30.fnt lub nazwę jednej z dwóch wbudowanych w tablicę czcionek o wysokości 8pix, nazwy te to "FONTNORMAL" "FONTFAT"
 
@@ -61,7 +61,7 @@ Przykład wykożystania programu "nc" dla komendy "gettime":
 
 	Powoduje włączenie przydzielania adresu poprzez system dhcp
 
-1. **"gettime"** - zwraca czas wskazywany przez zegar w sterowniku.
+1. **"gettime"** - zwraca czas wskazywany przez zegar w sterowniku. *Tablica pobiera aktualną godzinę z dostępnych w internecie serwerów NTP.*
 
 Alternatywnie zamiast komendy money możemy wysłać bitmapę w specjalnym formacie "lim" do wyświetlenia, dokonujemy tego za pomocą standardowej komendy protokołu ftp "STOR" tyle, że podajemy jako parametr nazwę pliku docelowego "image.lim" 
 
