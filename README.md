@@ -148,7 +148,7 @@ Przykładowy skrypt bash sterujący tablicą:
 Wywołanie skryptu może wyglądać następująco:  
 >`./upload_page.sh 192.168.1.12 8454 page.json`  
 
-Po wysłaniu komendy *page* na port komend tablicy, zwraca ona informację `Re: Expecting file json_page on port <numer portu danych>` jeśli jest gotowa odebrania nowego pakietu danych, lub `Re: DataPort is busy` jeśli poprzednie połączenie jest wciąż w toku, należy wówczas zamknąć port komend i ponowić próbę po 2 sekundach.  
+Po wysłaniu komendy *page* na port komend tablicy, zwraca ona informację `Re: Expecting file json_page on port <numer portu danych>` jeśli jest gotowa do odebrania nowego pakietu danych, lub `Re: DataPort is busy` jeśli poprzednie połączenie jest wciąż w toku, należy wówczas zamknąć port komend i ponowić próbę po 2 sekundach.  
 
 W trakcie transmisji na porcie danych tablica zwraca informacje o odebranych danych, przykład poniżej:  
 `DataPort: Ready to receive json_page`  
@@ -157,7 +157,7 @@ W trakcie transmisji na porcie danych tablica zwraca informacje o odebranych dan
 `DataPort: Total bytes received 5840`  
 `DataPort: Total bytes received 7551`  
 
- **Uwaga:** Sterowanie tablicą musi odbywać się synchronicznie (jednowątkowo). Ostatnia linijka powyższego skryptu nakazuje odczekanie 4 sekund przed ponowną transmisją. Ponieważ tablica led działa jednowątkowo nie możliwe jest obsługiwanie wielu transmisji jednocześnie, przed próbą ponownego połączenia konieczne jest odczekanie do zakończenia i zamknięcia poprzednich połączeń. Alternatywnie zamiast trzymać się sztywnego czasu opóźnienia, można analizować dane zwracane przez porty komend i danych celem oceny czy wszystkie dane zostały dostarczone i kolejna transmisja jest możliwa.**   
+ **Uwaga:** Sterowanie tablicą musi odbywać się synchronicznie (jednowątkowo). Ostatnia linijka powyższego skryptu nakazuje odczekanie 4 sekund przed ponowną transmisją. Ponieważ tablica led działa jednowątkowo nie możliwe jest obsługiwanie wielu transmisji jednocześnie, przed próbą ponownego połączenia konieczne jest odczekanie do zakończenia i zamknięcia poprzednich połączeń. Alternatywnie zamiast trzymać się sztywnego czasu opóźnienia, można analizować dane zwracane przez porty komend i danych celem oceny czy wszystkie dane zostały dostarczone i kolejna transmisja jest możliwa. Sterowanie Udp nie posiada tego ograniczenia.  
 
 ## Opis formatu strony json  w wersji 1
 1. Elementy  
