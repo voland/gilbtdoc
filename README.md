@@ -36,50 +36,50 @@ Przykład pobierania konfiguracji tablic z otoczenia sieciowego za pomocą progr
 
 ## Log Tablicy
 
-W pewnych sytuacjach pomocne może być odczytywanie loga sterowanej tablicy, która wysyła pewne informacje na adres rozgłoszeniowy na numer portu uzależniony od swojego numeru seryjnego UID. Numer portu stanowią 4 ostatnie cyfry UID.
+W pewnych sytuacjach pomocne może być odczytywanie loga sterowanej tablicy, która wysyła pewne informacje na adres rozgłoszeniowy na numer portu uzależniony od swojego numeru seryjnego UID. Numer portu stanowią 4 ostatnie numeru UID.
 
-Przykład Odczytania loga dla tablicy o UID=5308452
+Przykład odczytania loga dla tablicy o UID=5308452
 > nc -kul 8452
 
 ## Sterowanie tablicą GilBT typ RGB poprzez połączenie udp/ip 
 
-Sterowanie dokonujemy wysyłając komendy do tablicy, używamy do tego połączenia lan oraz protokołu udp/ip lub tcp/ip. W dowolnym języku programowania możemy utworzyć takie połączenie używając tak zwanych socketów. Możemy też użyć komendy "nc" (programu netcat) w terminalu linux oraz windows do wysyłania komend bez tworzenia żadnego dodatkowego oprogramowania.
+Sterowanie dokonujemy wysyłając komendy do tablicy, używamy do tego połączenia lan oraz protokołu udp/ip. W dowolnym języku programowania możemy utworzyć takie połączenie używając tak zwanych socketów. Możemy też użyć komendy "nc" (programu netcat) w terminalu linux oraz windows do wysyłania komend bez tworzenia żadnego dodatkowego oprogramowania.
 
 ### Opis Komend wysyłanych do urządzenia:
 
 - Sterowanie treścią tablicy pakietami udp/ip ( dane do 1,5kb )  
 	JSONPAGE: <_content_>  
 	przykład1:  
-	>`JSONPAGE:{"ver":1,"elements":[{"color":32,"width":96,"height":16,"type":"rectangle","x":0,"y":0},{"content":"2019-10-18 14:18:46","color":-65536,"fontsize":8,"fonttype":1,"type":"line","x":0,"y":0},{"content":"Tekst!","color":65280,"fontsize":16,"fonttype":2,"type":"line","x":0,"y":0}]}`
+	`JSONPAGE:{"ver":1,"elements":[{"color":32,"width":96,"height":16,"type":"rectangle","x":0,"y":0},{"content":"2019-10-18 14:18:46","color":-65536,"fontsize":8,"fonttype":1,"type":"line","x":0,"y":0},{"content":"Tekst!","color":65280,"fontsize":16,"fonttype":2,"type":"line","x":0,"y":0}]}`
 
 - Zmiana kontrastu/kontrastu nocnego w skali od 1-4  
-	Kontrast4!  
-	KontrastN1!  
+	`Kontrast4!`  
+	`KontrastN1`  
 
 - Ustawienie zegara wewnętrznego:  
-	TIME:2019-10-18 15:37:00!
+	`TIME:2019-10-18 15:37:00!`  
 
 - Dhcp Wyłącz/Włącz   ( Net Mode )  
-	NM0  
-	NM1  
+	`NM0`  
+	`NM1`  
 
 - Adres IP  
-	MIP192.168.1.205
+	`MIP192.168.1.205`  
 
 - Maska  
-	MA255.255.255.0
+	`MA255.255.255.0`  
 
 - Brama Domyślna  
-	GW192.168.1.1
+	`GW192.168.1.1`  
 
 - Reset, po zmianie ustawień sieci trzeba zresetować tablicę komendą:  
-	RESET
+	`RESET`  
 
 - Zmiana nazwy ekranu
-	NAZWA:ekran
+	`NAZWA:ekran`  
 
 - ustawienie godziny wyłączenia/włączenia automatycznego ( gdy same zera to funkcja nieaktywna)  
-	CW1:0-6:0!
+	`CW1:0-6:0!`  
 
 Sterowanie komendą netcat może wyglądać następująco:  
 > nc -u _addressip_ _port_ < _file_with_command_  
