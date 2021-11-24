@@ -157,7 +157,7 @@ W trakcie transmisji na porcie danych tablica zwraca informacje o odebranych dan
 `DataPort: Total bytes received 5840`  
 `DataPort: Total bytes received 7551`  
 
- **Uwaga: Sterowanie tablicą musi odbywać się synchronicznie (jednowątkowo). Ostatnia linijka powyższego skryptu nakazuje odczekanie 4 sekund przed ponowną transmisją. Ponieważ tablica led działa jednowątkowo nie możliwe jest obsługiwanie wielu transmisji jednocześnie, przed próbą ponownego połączenia konieczne jest odczekanie do zakończenia i zamknięcia poprzednich połączeń. Alternatywnie zamiast trzymać się sztywnego czasu opóźnienia, można analizować dane zwracane przez porty komend i danych celem oceny czy wszystkie dane zostały dostarczone i kolejna transmisja jest możliwa.**   
+ **Uwaga:** Sterowanie tablicą musi odbywać się synchronicznie (jednowątkowo). Ostatnia linijka powyższego skryptu nakazuje odczekanie 4 sekund przed ponowną transmisją. Ponieważ tablica led działa jednowątkowo nie możliwe jest obsługiwanie wielu transmisji jednocześnie, przed próbą ponownego połączenia konieczne jest odczekanie do zakończenia i zamknięcia poprzednich połączeń. Alternatywnie zamiast trzymać się sztywnego czasu opóźnienia, można analizować dane zwracane przez porty komend i danych celem oceny czy wszystkie dane zostały dostarczone i kolejna transmisja jest możliwa.**   
 
 ## Opis formatu strony json  w wersji 1
 1. Elementy  
@@ -172,10 +172,10 @@ W tym momencie dostępne są tylko 2 rodzaje elementów strony:
 	* 2 czcionka arial regular, czcionka pobrana jest z karty pamięci z pliku arialXX.rgb.fnt, gdzie XX oznacza wielkość w px
 	* 3 czcionka arial bold, czcionka pobrana jest z karty pamięci z pliku arialBXX.rgb.fnt, gdzie XX oznacza wielkość w px
 
-	**Uwaga** Jeśli na karcie SD brakuje wybranej czcionki zawsze zastępowana jest ona czcionką 0.
+	**Uwaga:** Jeśli na karcie SD brakuje wybranej czcionki zawsze zastępowana jest ona czcionką 0.
 
 2. Kolor  
-	**Uwaga**, kolor podany jest w zmiennej integer 32bit ARGB.   
+	**Uwaga:** kolor podany jest w zmiennej integer 32bit ARGB.   
     * Przykładowo 0x00ff0000 przekonwertowany do zmiennej int oznacza kolor czerwony  
     * Przykładowo 0x0000ff00 przekonwertowany do zmiennej int oznacza kolor zielony  
     * Przykładowo 0x000000ff przekonwertowany do zmiennej int oznacza kolor niebieski  
