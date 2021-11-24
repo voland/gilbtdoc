@@ -30,17 +30,18 @@ Przykład wykożystania programu "nc" dla komendy "gettime":
    - "c" j.w. do środka
    - "1" - "5" scrollowanie (przesuwanie tekstu) w prędkości od 1 do 5
 
-Przykład użycia komendy:
-`txtpos "l" "1" "3" "c"`
+	Przykład:  
+	`txtpos "l" "1" "3" "c"`  
 
-Powoduje ustawienie 1 linii do lewej, 2 linia scroll ( prędkość 1 ), 3 linia scroll ( prędkość 3 ), 4 linia wyrównanie do środka
+	Powoduje ustawienie 1 linii do lewej, 2 linia scroll ( prędkość 1 ), 3 linia scroll ( prędkość 3 ), 4 linia wyrównanie do środka
 
 
 1. **"setrowspos"** - zmienia pozycje wierszy (pionowo) na te podane przy wywołaniu komendy.
 
-`setrowspos "0" "8" "16" "24"`
+	Przykład:  
+	`setrowspos "0" "8" "16" "24"`  
 
-Powoduje ustawienie po kolei linii w pozycjach 0, 8, 16, 24. patrząc od góry.
+	Powoduje ustawienie po kolei linii w pozycjach 0, 8, 16, 24. patrząc od góry.
 
 1. **"version"** - zwraca wersję firmware ekranu.
 
@@ -50,13 +51,15 @@ Powoduje ustawienie po kolei linii w pozycjach 0, 8, 16, 24. patrząc od góry.
 
 1. **"netconf"** - zmienia parametry IP urządzenia np.
 
-`netconf "192.168.1.2" "255.255.255.0" "192.168.1.1"`
+	Przykład:  
+	`netconf "192.168.1.2" "255.255.255.0" "192.168.1.1"`  
 
-Powoduje zmianę adresów na statyczne: ip=192.168.1.2 maska= 255.255.255.0 brama=192.168.1.1
+	Powoduje zmianę adresów na statyczne: ip=192.168.1.2 maska= 255.255.255.0 brama=192.168.1.1  
 
-`netconf "dhcp"`
+	Przykład:  
+	`netconf "dhcp"`
 
-Powoduje włączenie przydzielania adresu poprzez system dhcp
+	Powoduje włączenie przydzielania adresu poprzez system dhcp
 
 1. **"gettime"** - zwraca czas wskazywany przez zegar w sterowniku.
 
