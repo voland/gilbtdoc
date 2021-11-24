@@ -9,9 +9,9 @@ Tablica posiada przyłącze do sieci lan z otwartym portem 21 ftp służącym do
 
 
 # Przykład uruchomienia komunikacji przy pomocy programu netcat
-> Podobne sterowanie można uzyskac w kazdym języku programowania posiadający możliwość wykożystania socketów. Równierz przy pomocy polecenia nc (programu netcat) w terminalu linux.
+Podobne sterowanie można uzyskac w kazdym języku programowania posiadający możliwość wykożystania socketów. Równierz przy pomocy polecenia nc (programu netcat) w terminalu linux.
 
-> Przykład wykożystania programu "nc" dla komendy "gettime"
+Przykład wykożystania programu "nc" dla komendy "gettime":
 
 > `printf "gettime" | nc -w 2 -N 192.168.1.206 21`
 
