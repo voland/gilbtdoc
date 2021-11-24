@@ -172,7 +172,7 @@ W tym momencie dostępne są tylko 2 rodzaje elementów strony:
 	* 2 czcionka arial regular, czcionka pobrana jest z karty pamięci z pliku arialXX.rgb.fnt, gdzie XX oznacza wielkość w px
 	* 3 czcionka arial bold, czcionka pobrana jest z karty pamięci z pliku arialBXX.rgb.fnt, gdzie XX oznacza wielkość w px
 
-	Jeśli na karcie SD brakuje wybranej czcionki zawsze zastępowana jest ona czcionką 0.
+	**Uwaga** Jeśli na karcie SD brakuje wybranej czcionki zawsze zastępowana jest ona czcionką 0.
 
 2. Kolor  
 	**Uwaga**, kolor podany jest w zmiennej integer 32bit ARGB.   
