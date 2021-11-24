@@ -82,15 +82,15 @@ Sterowanie dokonujemy wysyłając komendy do tablicy, używamy do tego połącze
 	`CW1:0-6:0!`  
 
 Sterowanie komendą netcat może wyglądać następująco:  
-> nc -u _addressip_ _port_ < _file_with_command_  
+`nc -u _addressip_ _port_ < _file_with_command_`  
 
 lub  
 
-> printf "*command*" | nc -u _addressip_ _port_
+`printf "*command*" | nc -u _addressip_ _port_`  
 
 przykład2 ( w tym przypadku plik data.txt zawiera treść z przykładu 1. Port sterowania udp jest stały zawsze wynosi 8888.)  
 
->nc -u 192.168.1.147 8888 < data.txt
+`nc -u 192.168.1.147 8888 < data.txt`  
 
 ## Sterowanie tablicą GilBT rgb poprzez protokół tcp/ip ( dane powyżej 1,5kb )
 
