@@ -38,8 +38,7 @@ Tablica posiada przyłącze do sieci lan z otwartym portem 21 ftp służącym do
 
 1. **"setrowspos"** - zmienia pozycje wierszy (pionowo) na te podane przy wywołaniu komendy.
 
-		Przykład użycia komendy:
-			setrowspos "0" "8" "16" "24"
+> `setrowspos "0" "8" "16" "24"`
 
 		Powoduje ustawienie po kolei linii w pozycjach 0, 8, 16, 24. patrząc od góry.
 
@@ -51,11 +50,11 @@ Tablica posiada przyłącze do sieci lan z otwartym portem 21 ftp służącym do
 
 1. **"netconf"** - zmienia parametry IP urządzenia np.
 
-			netconf "192.168.1.2" "255.255.255.0" "192.168.1.1" 
+> `netconf "192.168.1.2" "255.255.255.0" "192.168.1.1"`
 
-		Powoduje zmianę adresów na statyczne: ip=192.168.1.2 maska= 255.255.255.0 brama=192.168.1.1
+>		Powoduje zmianę adresów na statyczne: ip=192.168.1.2 maska= 255.255.255.0 brama=192.168.1.1
 
-			netconf "dhcp" 
+> `netconf "dhcp"`
 
 		Powoduje włączenie przydzielania adresu poprzez system dhcp
 
