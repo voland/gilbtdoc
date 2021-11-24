@@ -69,9 +69,11 @@ Przykład:
 
 `STOR image.lim`  
 
-	Program sterownika automatycznie taki plik zamiast zapisać na dysku wyświetli go na ekranie. Przykład użycia dostępny jest w programie pula (metoda SendGraphic), nalerzy go jedynie odkomentować i podać ścieżkę do grafiki jedno bitowej o rozmiarze 128x32.
+# Wysyłanie bitmapy jako treści obrazu:
 
-**Komendy przyjmujące po więcej niż jeden argument przyjmują je w cudzysłowach.**
+Program sterownika automatycznie taki plik zamiast zapisać na dysku wyświetli go na ekranie. Przykład użycia dostępny jest w programie pula (metoda SendGraphic), nalerzy go jedynie odkomentować i podać ścieżkę do grafiki jedno bitowej o rozmiarze 128x32.
+
+**Uwaga: Komendy przyjmujące po więcej niż jeden argument przyjmują je w cudzysłowach.**
 
 # Kontakt:
 
