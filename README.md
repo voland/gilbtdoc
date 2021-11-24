@@ -36,7 +36,7 @@ Przykład pobierania konfiguracji tablic z otoczenia sieciowego za pomocą progr
 
 ## Log Tablicy
 
-W pewnych sytuacjach pomocne może być odczytywanie loga sterowanej tablicy, która wysyła pewne informacje na adres rozgłoszeniowy na numer portu uzależniony od swojego numeru seryjnego UID. Numer portu stanowią 4 ostatnie numeru UID.
+W pewnych sytuacjach pomocne może być odczytywanie loga sterowanej tablicy, która wysyła pewne informacje na adres rozgłoszeniowy na numer portu uzależniony od swojego numeru seryjnego UID. Numer portu stanowią 4 ostatnie numeru UID. ( Numer UID to stały numer seryjny sterownika osobny dla każdej tablicy).  
 
 Przykład odczytania loga dla tablicy o UID=5308452
 > nc -kul 8452
@@ -88,7 +88,7 @@ lub
 
 `printf "*command*" | nc -u _addressip_ _port_`  
 
-przykład2 ( w tym przypadku plik data.txt zawiera treść z przykładu 1. Port sterowania udp jest stały zawsze wynosi 8888.)  
+przykład2 ( w tym przypadku plik data.txt zawiera treść z przykładu 1. Port sterowania udp jest stały i zawsze wynosi 8888.)  
 
 `nc -u 192.168.1.147 8888 < data.txt`  
 
@@ -96,7 +96,7 @@ przykład2 ( w tym przypadku plik data.txt zawiera treść z przykładu 1. Port 
 
 Ponieważ sercem tablicy led jest mikrokontroler a te posiadają małe zasoby, tablica nie przyjmuje pakietów udp wielkości powyżej 1,5kb jeżeli dane json page przekraczają tą wartość należy je wysłać poprzez połączenie tcp/ip.  
 
-Wszystkie komendy, które można wysłać drogą udp/ip można również wysłać drogą tcp/ip aby to zrobić należy znać numer otwartego portu tcp danej tablicy, numer portu wyznacza się wedle wzoru ((UID) modulo 10000)+2. Przykładowo dla tablicy o znanym numerze uid 5308452 port wynosi: 8452+2 = 8454. ( Numer UID to stały numer seryjny sterownika osobny dla każdej tablicy). Podobnie jak w przypadku wysyłania drogą udp można korzystać bibliotek socketów dowolnego języka programowania lub wysłać dane przy pomocy programu netcat (komendy nc w terminalu).  
+Wszystkie komendy, które można wysłać drogą udp/ip można również wysłać drogą tcp/ip aby to zrobić należy znać numer otwartego portu tcp danej tablicy, numer portu wyznacza się wedle wzoru ((UID) modulo 10000)+2. Przykładowo dla tablicy o znanym numerze uid 5308452 port wynosi: 8452+2 = 8454.  Podobnie jak w przypadku wysyłania drogą udp można korzystać bibliotek socketów dowolnego języka programowania lub wysłać dane przy pomocy programu netcat (komendy nc w terminalu).  
 
 Przykład wysłania komendy "RESET" do tablicy drogą tcp/ip przy pomocy terminala z powłoką bash:  
 `printf "RESET" | nc -w 2 -N 192.168.1.12 8454`  
