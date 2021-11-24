@@ -25,10 +25,10 @@ Przykład wykożystania programu "nc" dla komendy "gettime":
 
 1. **"txtpos"** - służy do zmiany poziomej orientacji tekstu wprowadzonego przez komendę money, podajemy 4 argumenty dla każdej linii z osobna: 
 
-- "l" wyrównanie do lewej strony
-- "r" j.w. do prawej
-- "c" j.w. do środka
-- "1" - "5" scrollowanie (przesuwanie tekstu) w prędkości od 1 do 5
+ - "l" wyrównanie do lewej strony
+ - "r" j.w. do prawej
+ - "c" j.w. do środka
+ - "1" - "5" scrollowanie (przesuwanie tekstu) w prędkości od 1 do 5
 
 Przykład użycia komendy:
 `txtpos "l" "1" "3" "c"`
