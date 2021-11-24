@@ -23,7 +23,7 @@ Przykład wykożystania programu "nc" dla komendy "gettime":
 
 1. **"font"** - służy do zmiany czcionki używanej przy wyświetlaniu tekstu podanego przez komendę money, jako argument podajemy nazwę pliku czcionek istniejącego w pamięci Karty SD ekranu np. font arialbold30.fnt lub nazwę jednej z dwóch wbudowanych w tablicę czcionek o wysokości 8pix, nazwy te to "FONTNORMAL" "FONTFAT"
 
-1. **"txtpos"** - służy do zmiany poziomej orientacji tekstu wprowadzonego przez komendę money, podajemy 4 argumenty dla każdej linii z osobna: 
+1. **"txtpos"** - służy do zmiany poziomej orientacji tekstu wprowadzonego przez komendę *money*, podajemy 4 argumenty dla każdej linii z osobna: 
 
    - "l" wyrównanie do lewej strony
    - "r" j.w. do prawej
@@ -63,11 +63,13 @@ Przykład wykożystania programu "nc" dla komendy "gettime":
 
 1. **"gettime"** - zwraca czas wskazywany przez zegar w sterowniku. *Tablica pobiera aktualną godzinę z dostępnych w internecie serwerów NTP.*
 
-Alternatywnie zamiast komendy money możemy wysłać bitmapę w specjalnym formacie "lim" do wyświetlenia, dokonujemy tego za pomocą standardowej komendy protokołu ftp "STOR" tyle, że podajemy jako parametr nazwę pliku docelowego "image.lim" 
+Alternatywnie zamiast komendy *money* możemy wysłać bitmapę w specjalnym formacie "lim" do wyświetlenia, dokonujemy tego za pomocą standardowej komendy protokołu ftp "STOR", jako parametr podajemy nazwę pliku docelowego "image.lim"  
 
-czyli: 
-STOR image.lim, program sterownika automatycznie taki plik zamiast zapisać na dysku wyświetli go na ekranie. 
-Przykład użycia dostępny jest w programie pula (metoda SendGraphic), trzeba go tylko odkomentować i podać ścieżkę do jakiejś grafiki jedno bitowej o rozmiarze 128x32.
+Przykład: 
+
+`STOR image.lim`  
+
+	Program sterownika automatycznie taki plik zamiast zapisać na dysku wyświetli go na ekranie. Przykład użycia dostępny jest w programie pula (metoda SendGraphic), nalerzy go jedynie odkomentować i podać ścieżkę do grafiki jedno bitowej o rozmiarze 128x32.
 
 **Komendy przyjmujące po więcej niż jeden argument przyjmują je w cudzysłowach.**
 
