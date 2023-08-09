@@ -41,6 +41,78 @@ W pewnych sytuacjach pomocne może być odczytywanie loga sterowanej tablicy, kt
 Przykład odczytania loga dla tablicy o UID=5308452
 > nc -kul 8452
 
+## Sterowanie tablicą GilBT typ RGB poprzez połączenie szeregowe rs485 lub rs232 
+
+Komendy wysyłamy przez połączenie szeregowe ustawione jest na BAUD=115200, każda komenda musi być zakończona znakiem nowej linii <CR>
+
+### Opis Komend AT wysyłanych do urządzenia:
+
+- "AT+RDEV=<nazwa_urządzenia>" Ustawienie urządzenia do odbierania komend (RecevingDevice). Ponieważ pod jedną magistralę szeregową może być podłączone kilka tablic, to która tablica ma odbierać komendy wybieramy za pomocą opisywanego polecenia, jeżeli chcemy aby wszystkie tablice odbierały i wykonywały polecenia jako nazwę podajemy znak \*.
+    przykład:
+	`AT+RDEV=*`  
+	`AT+RDEV=screen1`  
+
+- "AT+NAME=<nazwa_urządzenia>" Ustawia nazwę urządzenia.
+    przykład:
+	`AT+NAME=screen1`  
+
+- "AT+STATUS" zwraca ciąg znaków "OK".
+    przykład:
+	`AT+STATUS`  
+
+- "AT+RST" Resetuje urządzenie, reset jest wymaga po ustawieniu niektórych parametrów opisanych poniżej.
+    przykład:
+	`AT+RST`  
+    
+- "AT+CONTR=" Ustawia jasność świecenia tablicy o ile ta nie jest regulowana automatycznie poprzez fotorezystor. Zakres parametru: 1-4.
+    przykład:
+	`AT+CONTR=4`  
+    
+- "AT+CONTRN=" Ustawia jasność świecenia w tablicy w nocy o ile ta nie jest regulowana automatycznie poprzez fotorezystor. Zakres parametru: 1-4. Kontrast nocny przełączany jest na podstawie wskazań zegara wewnętrznego.
+    przykład:
+	`AT+CONTRN=1`  
+    
+- "AT+RPOW=" Ustawia ograniczenie maksymalnej mocy urządzenia, parametr podawany jest w procentach. Zakres parametru: 1-100.
+    przykład:
+	`AT+RPOW=80`  
+
+### Poniżej opisane komendy dotyczą konfiguracji sieci po wykonaniu dowolnej ilości z poniżej opisanych komend konieczne jest zresetowanie urządzenia gdyż te ustawia sieć podczas restartu.
+
+- "AT+NMOD=" Ustawia tryb ustawienia adresu ip urządzenia. Przyjmuje wartości: static,dhcp.
+    przykład:
+	`AT+NMOD=static`  
+	`AT+NMOD=dhcp`  
+
+- "AT+IP=" Ustawia adres ip urządznia, aby ustawienie parametru miało skutek, koniecznie jest ustawienie trybu sieci na static.
+    przykład:
+	`AT+IP=192.168.1.12`  
+
+- "AT+MA=" Ustawia maskę podsieci urządzenia, aby ustawienie parametru miało skutek, koniecznie jest ustawienie trybu sieci na static.
+    przykład:
+	`AT+MA=255.255.255.0`  
+
+- "AT+GW=" Ustawia adres ip urządznia, aby ustawienie parametru miało skutek koniecznie jest ustawienie trybu sieci na static.
+    przykład:
+	`AT+GW=192.168.1.1`  
+
+- "AT+ETHMOD=" Ustawia tryb oraz przepustowość gniazda ethernet, dostępne możliwości to: AN, 100MFD, 100MHD, 10MFD, 10MHD. Domyślna wartość to AN (Auto Negotiation). Przydatne w sytuacji gdy kabel Lan jest bardzo długu i spowolnienie przepustowości może poprawić jakość transmisji.
+    przykład:
+	`AT+ETHMOD=AN`  
+	`AT+ETHMOD=100MFD`  
+	`AT+ETHMOD=100MHD`  
+	`AT+ETHMOD=10MFD`  
+	`AT+ETHMOD=10MHD`  
+
+### Poniżej opisane komendy dotyczą ustawiania wyświetlanej treści. Aby wysłać treść należy wysłać komendę rozpoczęcia transmisji, wysłać dane w postaci JSON opisane poniżej, następnie wysłać komendę zakończenia transmisji.
+
+- "AT+PAGE" Informuje urządzenie o rozpoczęciu nadawania danych do wyświetlania.
+    przykład:
+	`AT+PAGE`  
+
+- "AT+EOD" Informuje urządzenie o zakończeniu nadawania danych do wyświetlania, (end of data). Po otrzymaniu komendy urządzenie powinno zdekodować dane oraz wyświetlić.
+    przykład:
+	`AT+EOD`  
+
 ## Sterowanie tablicą GilBT typ RGB poprzez połączenie udp/ip 
 
 Sterowanie dokonujemy wysyłając komendy do tablicy, używamy do tego połączenia lan oraz protokołu udp/ip. W dowolnym języku programowania możemy utworzyć takie połączenie używając tak zwanych socketów. Możemy też użyć komendy "nc" (programu netcat) w terminalu linux oraz windows do wysyłania komend bez tworzenia żadnego dodatkowego oprogramowania.
