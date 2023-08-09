@@ -1,5 +1,80 @@
-## Wstęp
+# Wstęp
 Niniejsza dokumentacja  jest na etapie ciągłego udoskonalania. Jeżeli cokolwiek wydaje się być niejasne lub niekompletne proszę o kontakt. Dane kotaktowe umieszczone są na dole dokumentu.
+
+# Sterowanie tablicą GilBT typ RGB poprzez połączenie szeregowe rs485 lub rs232 
+
+Komendy wysyłamy przez połączenie szeregowe ustawione jest na BAUD=115200, każda komenda musi być zakończona znakiem nowej linii \<CR\>.
+
+### Opis Komend AT wysyłanych do urządzenia:
+
+- "AT+RDEV=<nazwa_urządzenia>" Ustawienie urządzenia do odbierania komend (RecevingDevice). Ponieważ pod jedną magistralę szeregową może być podłączone kilka tablic, to która tablica ma odbierać komendy wybieramy za pomocą opisywanego polecenia, jeżeli chcemy aby wszystkie tablice odbierały i wykonywały polecenia jako nazwę podajemy znak \*.  
+    przykład:  
+	`AT+RDEV=*`  
+	`AT+RDEV=screen1`  
+
+- "AT+NAME=<nazwa_urządzenia>" Ustawia nazwę urządzenia.  
+    przykład:  
+	`AT+NAME=screen1`  
+
+- "AT+STATUS" zwraca komunikat "OK".  
+    przykład:  
+	`AT+STATUS`  
+
+- "AT+RST" Resetuje urządzenie, reset jest wymagany po ustawieniu niektórych parametrów opisanych poniżej.  
+    przykład:  
+	`AT+RST`  
+    
+- "AT+CONTR=" Ustawia jasność świecenia tablicy o ile ta nie jest regulowana automatycznie poprzez fotorezystor. Zakres parametru: 1-4.  
+    przykład:  
+	`AT+CONTR=4`  
+    
+- "AT+CONTRN=" Ustawia jasność świecenia w tablicy w nocy o ile ta nie jest regulowana automatycznie poprzez fotorezystor. Zakres parametru: 1-4. Kontrast nocny przełączany jest na podstawie wskazań zegara wewnętrznego.  
+    przykład:  
+	`AT+CONTRN=1`  
+    
+- "AT+RPOW=" Ustawia ograniczenie maksymalnej mocy urządzenia, parametr podawany jest w procentach. Zakres parametru: 1-100.  
+    przykład:  
+	`AT+RPOW=80`  
+
+#### Poniżej opisane komendy dotyczą konfiguracji sieci, po wykonaniu dowolnej ilości z poniżej opisanych komend konieczne jest zresetowanie urządzenia gdyż sieć konfigurowania jest podczas restartu.
+
+- "AT+NMOD=" Ustawia tryb ustawienia adresu ip urządzenia. Przyjmuje wartości: static,dhcp.  
+    przykład:  
+	`AT+NMOD=static`  
+	`AT+NMOD=dhcp`  
+
+- "AT+IP=" Ustawia adres ip urządznia, aby ustawienie parametru miało skutek, koniecznie jest ustawienie trybu sieci na static.  
+    przykład:  
+	`AT+IP=192.168.1.12`  
+
+- "AT+MA=" Ustawia maskę podsieci urządzenia, aby ustawienie parametru miało skutek, koniecznie jest ustawienie trybu sieci na static.  
+    przykład:  
+	`AT+MA=255.255.255.0`  
+
+- "AT+GW=" Ustawia adres ip urządznia, aby ustawienie parametru miało skutek koniecznie jest ustawienie trybu sieci na static.  
+    przykład:  
+	`AT+GW=192.168.1.1`  
+
+- "AT+ETHMOD=" Ustawia tryb oraz przepustowość gniazda ethernet, dostępne możliwości to: AN, 100MFD, 100MHD, 10MFD, 10MHD. Domyślna wartość to AN (Auto Negotiation). Przydatne w sytuacji gdy kabel Lan jest bardzo długi i spowolnienie przepustowości może poprawić jakość transmisji.  
+    przykład:  
+	`AT+ETHMOD=AN`  
+	`AT+ETHMOD=100MFD`  
+	`AT+ETHMOD=100MHD`  
+	`AT+ETHMOD=10MFD`  
+	`AT+ETHMOD=10MHD`  
+
+#### Poniżej opisane komendy dotyczą ustawiania wyświetlanej treści. Aby wysłać treść należy wysłać komendę rozpoczęcia transmisji, wysłać dane w postaci JSON opisanej poniżej w punkcie "Opis formatu strony json  w wersji 1", następnie wysłać komendę zakończenia transmisji.
+
+
+- "AT+PAGE" Informuje urządzenie o rozpoczęciu nadawania danych do wyświetlania.
+    przykład:  
+	`AT+PAGE`  
+
+- "AT+EOD" Informuje urządzenie o zakończeniu nadawania danych do wyświetlania, (end of data). Po otrzymaniu komendy urządzenie powinno zdekodować dane oraz wyświetlić.
+    przykład:  
+	`AT+EOD`  
+
+# Sterowanie tablicą GilBT typ RGB poprzez połączenie sieciowe
 
 ## Pobieranie informacji o konfiguracji tablicy led.
 Pobieranie danych konfiguracyjnych ze sterownika dokonujemy poprzez nasłuchiwanie na porcie 6001 udp/ip. Każda tablica z sterownikiem rgb dokonuje rozgłaszania informacji o własnej konfiguracji. Informacje te zawarte są w uproszczonym formacie XML, przykład takiego pakietu danych znajduje się poniżej.
@@ -40,78 +115,6 @@ W pewnych sytuacjach pomocne może być odczytywanie loga sterowanej tablicy, kt
 
 Przykład odczytania loga dla tablicy o UID=5308452
 > nc -kul 8452
-
-## Sterowanie tablicą GilBT typ RGB poprzez połączenie szeregowe rs485 lub rs232 
-
-Komendy wysyłamy przez połączenie szeregowe ustawione jest na BAUD=115200, każda komenda musi być zakończona znakiem nowej linii <CR>
-
-### Opis Komend AT wysyłanych do urządzenia:
-
-- "AT+RDEV=<nazwa_urządzenia>" Ustawienie urządzenia do odbierania komend (RecevingDevice). Ponieważ pod jedną magistralę szeregową może być podłączone kilka tablic, to która tablica ma odbierać komendy wybieramy za pomocą opisywanego polecenia, jeżeli chcemy aby wszystkie tablice odbierały i wykonywały polecenia jako nazwę podajemy znak \*.
-    przykład:
-	`AT+RDEV=*`  
-	`AT+RDEV=screen1`  
-
-- "AT+NAME=<nazwa_urządzenia>" Ustawia nazwę urządzenia.
-    przykład:
-	`AT+NAME=screen1`  
-
-- "AT+STATUS" zwraca ciąg znaków "OK".
-    przykład:
-	`AT+STATUS`  
-
-- "AT+RST" Resetuje urządzenie, reset jest wymaga po ustawieniu niektórych parametrów opisanych poniżej.
-    przykład:
-	`AT+RST`  
-    
-- "AT+CONTR=" Ustawia jasność świecenia tablicy o ile ta nie jest regulowana automatycznie poprzez fotorezystor. Zakres parametru: 1-4.
-    przykład:
-	`AT+CONTR=4`  
-    
-- "AT+CONTRN=" Ustawia jasność świecenia w tablicy w nocy o ile ta nie jest regulowana automatycznie poprzez fotorezystor. Zakres parametru: 1-4. Kontrast nocny przełączany jest na podstawie wskazań zegara wewnętrznego.
-    przykład:
-	`AT+CONTRN=1`  
-    
-- "AT+RPOW=" Ustawia ograniczenie maksymalnej mocy urządzenia, parametr podawany jest w procentach. Zakres parametru: 1-100.
-    przykład:
-	`AT+RPOW=80`  
-
-### Poniżej opisane komendy dotyczą konfiguracji sieci po wykonaniu dowolnej ilości z poniżej opisanych komend konieczne jest zresetowanie urządzenia gdyż te ustawia sieć podczas restartu.
-
-- "AT+NMOD=" Ustawia tryb ustawienia adresu ip urządzenia. Przyjmuje wartości: static,dhcp.
-    przykład:
-	`AT+NMOD=static`  
-	`AT+NMOD=dhcp`  
-
-- "AT+IP=" Ustawia adres ip urządznia, aby ustawienie parametru miało skutek, koniecznie jest ustawienie trybu sieci na static.
-    przykład:
-	`AT+IP=192.168.1.12`  
-
-- "AT+MA=" Ustawia maskę podsieci urządzenia, aby ustawienie parametru miało skutek, koniecznie jest ustawienie trybu sieci na static.
-    przykład:
-	`AT+MA=255.255.255.0`  
-
-- "AT+GW=" Ustawia adres ip urządznia, aby ustawienie parametru miało skutek koniecznie jest ustawienie trybu sieci na static.
-    przykład:
-	`AT+GW=192.168.1.1`  
-
-- "AT+ETHMOD=" Ustawia tryb oraz przepustowość gniazda ethernet, dostępne możliwości to: AN, 100MFD, 100MHD, 10MFD, 10MHD. Domyślna wartość to AN (Auto Negotiation). Przydatne w sytuacji gdy kabel Lan jest bardzo długu i spowolnienie przepustowości może poprawić jakość transmisji.
-    przykład:
-	`AT+ETHMOD=AN`  
-	`AT+ETHMOD=100MFD`  
-	`AT+ETHMOD=100MHD`  
-	`AT+ETHMOD=10MFD`  
-	`AT+ETHMOD=10MHD`  
-
-### Poniżej opisane komendy dotyczą ustawiania wyświetlanej treści. Aby wysłać treść należy wysłać komendę rozpoczęcia transmisji, wysłać dane w postaci JSON opisane poniżej, następnie wysłać komendę zakończenia transmisji.
-
-- "AT+PAGE" Informuje urządzenie o rozpoczęciu nadawania danych do wyświetlania.
-    przykład:
-	`AT+PAGE`  
-
-- "AT+EOD" Informuje urządzenie o zakończeniu nadawania danych do wyświetlania, (end of data). Po otrzymaniu komendy urządzenie powinno zdekodować dane oraz wyświetlić.
-    przykład:
-	`AT+EOD`  
 
 ## Sterowanie tablicą GilBT typ RGB poprzez połączenie udp/ip 
 
@@ -232,12 +235,15 @@ W trakcie transmisji na porcie danych tablica zwraca informacje o odebranych dan
  **Uwaga:** Sterowanie tablicą musi odbywać się synchronicznie (jednowątkowo). Ostatnia linijka powyższego skryptu nakazuje odczekanie 4 sekund przed ponowną transmisją. Ponieważ tablica led działa jednowątkowo nie możliwe jest obsługiwanie wielu transmisji jednocześnie, przed próbą ponownego połączenia konieczne jest odczekanie do zakończenia i zamknięcia poprzednich połączeń. Alternatywnie zamiast trzymać się sztywnego czasu opóźnienia, można analizować dane zwracane przez porty komend i danych celem oceny czy wszystkie dane zostały dostarczone i kolejna transmisja jest możliwa. Sterowanie Udp nie posiada tego ograniczenia.  
 
 ## Opis formatu strony json  w wersji 1
-1. Elementy  
+1. Przykład strony json:  
+	`{"ver":1,"elements":[{"color":32,"width":96,"height":16,"type":"rectangle","x":0,"y":0},{"content":"2019-10-18 14:18:46","color":-65536,"fontsize":8,"fonttype":1,"type":"line","x":0,"y":0},{"content":"Tekst!","color":65280,"fontsize":16,"fonttype":2,"type":"line","x":0,"y":0}]}`
+
+2. Elementy  
 W tym momencie dostępne są tylko 2 rodzaje elementów strony:
 	* line - linia tekstu
 	* rectangle - prostokąt o wybranym rozmiarze i kolorze.
 
-1. Czcionka  
+3. Czcionka  
 	Jak widać w skrypcie json rodzaj czcionki określa się numerem, aktualnie można podać wartości od 0 do 3. Z czego dwie pierwsze czcionki wkompilowane są w firmware mają zawsze stałą wysokość 8px, pozostałe czcionki znajdują się na karcie pamięci w postaci plików, ten drugi rodzaj czcionek był generowany automatycznie przez program i w rozmiarach poniżej 10px może być nieczytelny.
 	* 0 czcionka regular wkompilowana w firmware jej wysokość wynosi zawsze 8px niezależnie od ustawienia parametru *fontsize*
 	* 1 czcionka **bold** wkompilowana w firmware jej wysokość wynosi zawsze 8px niezależnie od ustawienia parametru *fontsize*
@@ -246,7 +252,7 @@ W tym momencie dostępne są tylko 2 rodzaje elementów strony:
 
 	**Uwaga:** Jeśli na karcie SD brakuje wybranej czcionki zawsze zastępowana jest ona czcionką 0.
 
-2. Kolor  
+4. Kolor  
 	**Uwaga:** kolor podany jest w zmiennej integer 32bit ARGB.   
     * Przykładowo 0x00ff0000 przekonwertowany do zmiennej int oznacza kolor czerwony  
     * Przykładowo 0x0000ff00 przekonwertowany do zmiennej int oznacza kolor zielony  
