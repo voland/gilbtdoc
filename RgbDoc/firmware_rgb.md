@@ -1,10 +1,10 @@
 # Instrukcja wgrywania firmware sterowników rgb firmy GilBT
 
 ## Metoda przez kartę pamięci (bardziej niezawodna):
-Do wgrania firmware do tablicy wymagana jest karta pamięci SD lub SDHC sformatowana w systemie FAT32 tylko i wyłącznie. Pomimo wielkich rozmiarów tablicy samo gniazdo jest małe i delikatne, w przypadku utrodnionego dostępu można użyć pensety. Gniazdo karty jest typu push/push (pchnij/pchnij) czyli aby włożyś kartę popychamy ją, aby wyjąć wykonujemy tą smą czynność, karta powinna się sama wysunąć. Poniżej znajduje się obraz sterownika wraz z wskazaniem gdzie należy spodziewać się gniazda SD.
+Do wgrania firmware do tablicy wymagana jest karta pamięci SD lub SDHC sformatowana w systemie FAT32 tylko i wyłącznie. Pomimo wielkich rozmiarów tablicy samo gniazdo jest małe i delikatne, w przypadku utrodnionego dostępu można użyć pensety. Gniazdo karty jest typu push/push (pchnij/pchnij) czyli aby wprowadzić kartę popychamy ją, aby wyjąć wykonujemy tą smą czynność, karta powinna się sama wysunąć. Poniżej znajduje się obraz sterownika wraz z wskazaniem gdzie należy spodziewać się gniazda SD.
 ![rgb_controler.jpg](rgb_controler.jpg)
 
-
+Procedura wgrania firmware jest następująca.  
 - Proszę wyłączyć ekran.
 - Wyjąć kartę/karty pamięci ( zapamiętać kolejność kart w modułach oraz ich orientację w tablicy ) .
 - Nagrać na karty plik firmware *.frm.
