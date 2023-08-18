@@ -6,7 +6,7 @@ Do wgrania firmware do tablicy wymagana jest karta pamięci SD lub SDHC sformato
 
 Procedura wgrania firmware jest następująca:  
 - Proszę wyłączyć ekran.
-- Wyjąć kartę/karty pamięci. Zapamiętać kolejność kart w modułach (jeśli jest ich wiele) oraz ich orientację w tablicy.
+- Jeśli slot nie jest pusty wyjąć kartę/karty pamięci i zapamiętać kolejność kart w modułach (jeśli jest ich wiele) oraz ich orientację w tablicy.
 - Nagrać na karty plik firmware *.frm.
 - **Koniecznie użyć funkcji bezpiecznego usuwania sprzętu przed wyjęciem karty pamięci z komputera.**
 - Wsunąć kartę/karty pamięci do ekranu w zapamiętanej kolejności.
