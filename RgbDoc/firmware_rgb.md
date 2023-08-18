@@ -1,17 +1,23 @@
 # Instrukcja wgrywania firmware sterowników rgb firmy GilBT
 
 ## Metoda przez kartę pamięci (bardziej niezawodna):
-Do wgrania firmware do tablicy wymagana jest karta pamięci SD lub SDHC sformatowana w systemie FAT32 tylko i wyłącznie. Pomimo wielkich rozmiarów tablicy samo gniazdo jest małe i delikatne, w przypadku utrodnionego dostępu można użyć pensety. Gniazdo karty jest typu push/push (pchnij/pchnij) czyli aby wprowadzić kartę popychamy ją, aby wyjąć wykonujemy tą smą czynność, karta powinna się sama wysunąć. Poniżej znajduje się obraz sterownika wraz z wskazaniem gdzie należy spodziewać się gniazda SD.
+Do wgrania firmware do tablicy wymagana jest karta pamięci SD lub SDHC sformatowana w systemie FAT32 tylko i wyłącznie. Pomimo wielkich rozmiarów tablicy samo gniazdo jest małe i delikatne, w przypadku utrudnionego dostępu można użyć pęsety. Gniazdo karty jest typu push/push (pchnij/pchnij) czyli aby wprowadzić kartę popychamy ją, aby wyjąć wykonujemy tą samą czynność, karta powinna się sama wysunąć. Poniżej znajduje się obraz sterownika wraz z wskazaniem gdzie należy spodziewać się gniazda SD.
 ![rgb_controler.jpg](rgb_controler.jpg)
 
-Procedura wgrania firmware jest następująca.  
+Procedura wgrania firmware jest następująca:  
 - Proszę wyłączyć ekran.
-- Wyjąć kartę/karty pamięci ( zapamiętać kolejność kart w modułach oraz ich orientację w tablicy ) .
+- Wyjąć kartę/karty pamięci. Zapamiętać kolejność kart w modułach (jeśli jest ich wiele) oraz ich orientację w tablicy.
 - Nagrać na karty plik firmware *.frm.
 - **Koniecznie użyć funkcji bezpiecznego usuwania sprzętu przed wyjęciem karty pamięci z komputera.**
 - Wsunąć kartę/karty pamięci do ekranu w zapamiętanej kolejności.
 - Włączyć ekran.
 - Odczekać kilkanaście sekund.
+
+W przypadku braku sukcesu, można sprawdzić następujące rzeczy.
+- upewnić się, że karta sformatowana jest na system plików FAT32 oraz, że użyta była funkcja bezpiecznego usuwania sprzętu.
+- Psiknąć na styki karty preparatem konserwującym styki, na przykład Kontakt PR, alternatywnie WD 40.
+- Można kilkukrotnie włożyć/wyjąć kartę tak aby sprowokować przetarcie styków gniazda.
+- Sprawdzić sprawność karty sd, czy po skopiowaniu pliku z powrotem na dysk jest on identyczny z oryginałem.
 
 ## Metoda przez sieć Lan lub Wifi:
 
