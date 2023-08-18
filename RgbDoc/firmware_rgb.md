@@ -1,5 +1,18 @@
 # Instrukcja wgrywania firmware sterowników rgb firmy GilBT
 
+## Metoda przez kartę pamięci (bardziej niezawodna):
+Do wgrania firmware do tablicy wymagana jest karta pamięci SD lub SDHC sformatowana w systemie FAT32 tylko i wyłącznie. Pomimo wielkich rozmiarów tablicy samo gniazdo jest małe i delikatne, w przypadku utrodnionego dostępu można użyć pensety. Gniazdo karty jest typu push/push (pchnij/pchnij) czyli aby włożyś kartę popychamy ją, aby wyjąć wykonujemy tą smą czynność, karta powinna się sama wysunąć. Poniżej znajduje się obraz sterownika wraz z wskazaniem gdzie należy spodziewać się gniazda SD.
+![rgb_controler.jpg](rgb_controler.jpg)
+
+
+- Proszę wyłączyć ekran.
+- Wyjąć kartę/karty pamięci ( zapamiętać kolejność kart w modułach oraz ich orientację w tablicy ) .
+- Nagrać na karty plik firmware *.frm.
+- **Koniecznie użyć funkcji bezpiecznego usuwania sprzętu przed wyjęciem karty pamięci z komputera.**
+- Wsunąć kartę/karty pamięci do ekranu w zapamiętanej kolejności.
+- Włączyć ekran.
+- Odczekać kilkanaście sekund.
+
 ## Metoda przez sieć Lan lub Wifi:
 
 - Tablica musi być podłączona do wspólnej sieci z komputerem z zainstalowanym programem LPD GilBT
@@ -10,17 +23,6 @@
 - Urządzenie powinno się samo zresetować i wgrać program do własnej pamięci.
 W razie czego przy nie udanej próbie, można wyłączyć i włączyć ekran ponownie i całą operację powtórzyć.
 Proszę nie eksperymentować za wiele z "Oknem serwisowym" może to spowodować niepoprawne działanie urządzenia.
-
-## Metoda przez kartę pamięci (bardziej niezawodna):
-Jeżeli ekran posiada uszkodzoną kartę pamięci lub niesprawną sieć albo wystąpią inne przeszkody wówczas pierwsza metoda nie zadziała może się okazać że trzeba będzie wgrać firmware na nową kartę, czasem wystarczy sformatować starą kartę na system fat32.
-
-- Proszę wyłączyć ekran.
-- Wyjąć kartę/karty pamięci ( zapamiętać kolejność kart w modułach oraz ich orientację w tablicy ) .
-- Nagrać na karty plik firmware *.frm.
-- **Koniecznie użyć funkcji bezpiecznego usuwania sprzętu przed wyjęciem karty pamięci z komputera.**
-- Wsunąć kartę/karty pamięci do ekranu w zapamiętanej kolejności.
-- Włączyć ekran.
-- Odczekać kilkanaście sekund.
 
 ## Kontakt
 
