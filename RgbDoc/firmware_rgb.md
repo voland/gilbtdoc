@@ -13,8 +13,8 @@ Procedura wgrania firmware jest następująca:
 - Włączyć ekran.
 - Odczekać kilkanaście sekund.
 
-W przypadku braku sukcesu, można sprawdzić następujące rzeczy.
-- upewnić się, że karta sformatowana jest na system plików FAT32 oraz, że użyta była funkcja bezpiecznego usuwania sprzętu.
+W przypadku braku sukcesu, można sprawdzić następujące rzeczy:  
+- Upewnić się, że karta sformatowana jest na system plików FAT32 oraz, że użyta była funkcja bezpiecznego usuwania sprzętu.
 - Psiknąć na styki karty preparatem konserwującym styki, na przykład Kontakt PR, alternatywnie WD 40.
 - Można kilkukrotnie włożyć/wyjąć kartę tak aby sprowokować przetarcie styków gniazda.
 - Sprawdzić sprawność karty sd, czy po skopiowaniu pliku z powrotem na dysk jest on identyczny z oryginałem.
