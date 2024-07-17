@@ -9,9 +9,9 @@ Tablica posiada przyłącze do sieci lan z otwartym portem 21 ftp służącym do
 
 
 # Przykład uruchomienia komunikacji przy pomocy programu netcat
-Podobne sterowanie można uzyskac w kazdym języku programowania posiadający możliwość wykożystania socketów. Równierz przy pomocy polecenia nc (programu netcat) w terminalu linux.
+Podobne sterowanie można uzyskać w każdym języku programowania posiadający możliwość wykorzystania socketów. Również przy pomocy polecenia nc (programu netcat) w terminalu linux.
 
-Przykład wykożystania programu "nc" dla komendy "gettime":
+Przykład wykorzystania programu "nc" dla komendy "gettime":
 
 `printf "gettime" | nc -w 2 -N 192.168.1.206 21`
 
@@ -63,7 +63,7 @@ Przykład wykożystania programu "nc" dla komendy "gettime":
 
 1. **"gettime"** - zwraca czas wskazywany przez zegar w sterowniku. *Tablica pobiera aktualną godzinę z dostępnych w internecie serwerów NTP.*
 
-Alternatywnie zamiast komendy *money* możemy wysłać bitmapę w specjalnym formacie "lim" do wyświetlenia, dokonujemy tego za pomocą standardowej komendy protokołu ftp "STOR", jako parametr podajemy nazwę pliku docelowego "image.lim"  
+Alternatywnie zamiast komendy *money* możemy wysłać bitmapę w specjalnym formacie "lim" do wyświetlenia, dokonujemy tego za pomocą standardowej komendy protokołu ftp "STOR", jako parametr podajemy nazwę pliku docelowego "image.lim".  
 
 Przykład: 
 
@@ -71,7 +71,7 @@ Przykład:
 
 # Wysyłanie bitmapy jako treści obrazu:
 
-Program sterownika automatycznie taki plik zamiast zapisać na dysku wyświetli go na ekranie. Przykład użycia dostępny jest w programie pula (metoda SendGraphic), nalerzy go jedynie odkomentować i podać ścieżkę do grafiki jedno bitowej o rozmiarze 128x32.
+Program sterownika automatycznie taki plik zamiast zapisać na dysku wyświetli go na ekranie. Przykład użycia dostępny jest w programie pula (metoda SendGraphic), należy go jedynie odkomentować i podać ścieżkę do grafiki jedno bitowej o rozmiarze 128x32.
 
 **Uwaga: Komendy przyjmujące po więcej niż jeden argument przyjmują je w cudzysłowach.**
 
@@ -79,4 +79,4 @@ Program sterownika automatycznie taki plik zamiast zapisać na dysku wyświetli 
 
 Arkadiusz Gil  
 e-mail: voland83@gmail.com  
-tel: 790597322  
+tel.: 790597322  
