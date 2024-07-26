@@ -1,5 +1,5 @@
 # Wstęp
-Niniejsza dokumentacja  jest na etapie ciągłego udoskonalania. Jeżeli cokolwiek wydaje się być niejasne lub niekompletne proszę o kontakt. Dane kotaktowe umieszczone są na dole dokumentu.
+Niniejsza dokumentacja  jest na etapie ciągłego udoskonalania. Jeżeli cokolwiek wydaje się być niejasne lub niekompletne proszę o kontakt. Dane kontaktowe umieszczone są na dole dokumentu.
 
 # Sterowanie tablicą GilBT typ RGB poprzez połączenie szeregowe rs485 lub rs232 
 
@@ -43,7 +43,7 @@ Komendy wysyłamy przez połączenie szeregowe ustawione jest na BAUD=115200, ka
 	`AT+NMOD=static`  
 	`AT+NMOD=dhcp`  
 
-- "AT+IP=" Ustawia adres ip urządznia, aby ustawienie parametru miało skutek, koniecznie jest ustawienie trybu sieci na static.  
+- "AT+IP=" Ustawia adres ip urządzenia, aby ustawienie parametru miało skutek, koniecznie jest ustawienie trybu sieci na static.  
     przykład:  
 	`AT+IP=192.168.1.12`  
 
@@ -51,7 +51,7 @@ Komendy wysyłamy przez połączenie szeregowe ustawione jest na BAUD=115200, ka
     przykład:  
 	`AT+MA=255.255.255.0`  
 
-- "AT+GW=" Ustawia adres ip urządznia, aby ustawienie parametru miało skutek koniecznie jest ustawienie trybu sieci na static.  
+- "AT+GW=" Ustawia adres ip urządzenia, aby ustawienie parametru miało skutek koniecznie jest ustawienie trybu sieci na static.  
     przykład:  
 	`AT+GW=192.168.1.1`  
 
@@ -125,7 +125,7 @@ Sterowanie dokonujemy wysyłając komendy do tablicy, używamy do tego połącze
 - Sterowanie treścią tablicy pakietami udp/ip ( dane do 1,5kb )  
 	JSONPAGE: <_content_>  
 	przykład1:  
-	`JSONPAGE:{"ver":1,"elements":[{"color":32,"width":96,"height":16,"type":"rectangle","x":0,"y":0},{"content":"2019-10-18 14:18:46","color":-65536,"fontsize":8,"fonttype":1,"type":"line","x":0,"y":0},{"content":"Tekst!","color":65280,"fontsize":16,"fonttype":2,"type":"line","x":0,"y":0}]}`
+	`JSONPAGE:{"ver":1,"elements":[{"type":"rectangle","color":32,"width":96,"height":16,"x":0,"y":0},{"type":"png", "filename":"image.png", "x":0,"y":0},{"type":"txt","content":"2019-10-18 14:18:46","color":-65536,"fonttype":1,"x":0,"y":0},{"type":"txt","content":"Tekst!","color":65280,"fonttype":2, "filename":"arialB16.fnt", "x":0,"y":0}]}`
 
 - Zmiana kontrastu/kontrastu nocnego w skali od 1-4  
 	`Kontrast4!`  
@@ -134,7 +134,7 @@ Sterowanie dokonujemy wysyłając komendy do tablicy, używamy do tego połącze
 - Ustawienie zegara wewnętrznego:  
 	`TIME:2019-10-18 15:37:00!`  
 
-- Dhcp Wyłącz/Włącz   ( Net Mode )  
+- Dhcp Wyłącz/Włącz 
 	`NM0`  
 	`NM1`  
 
@@ -163,7 +163,7 @@ lub
 
 `printf "*command*" | nc -u _addressip_ _port_`  
 
-przykład2 ( w tym przypadku plik data.txt zawiera treść z przykładu 1. Port sterowania udp jest stały i zawsze wynosi 8888.)  
+przykład 2 ( w tym przypadku plik data.txt zawiera treść z przykładu 1. Port sterowania udp jest stały i zawsze wynosi 8888.)  
 
 `nc -u 192.168.1.147 8888 < data.txt`  
 
@@ -198,17 +198,14 @@ Aby wysłać dane json przekraczające 1,5kb należy skorzystać z metody podobn
 
 Przykład pliku page.json:
 
->`{"ver":1,"elements":[{"color":127,"width":120,"height":220,"type":"rectangle","x":0,"y":0},`  
->`{"content":"linia1","color":-65536,"fontsize":8,"fonttype":1,"type":"line","x":40,"y":8},`  
->`{"content":"linia2","color":-65536,"fontsize":8,"fonttype":1,"type":"line","x":40,"y":16},`  
->`{"content":"linia3","color":-65536,"fontsize":8,"fonttype":1,"type":"line","x":40,"y":24},`  
->`{"content":"linia4","color":-65536,"fontsize":8,"fonttype":1,"type":"line","x":40,"y":32},`  
->`{"content":"linia6","color":-65536,"fontsize":8,"fonttype":1,"type":"line","x":40,"y":8},`  
->`{"content":"linia7","color":-65536,"fontsize":8,"fonttype":1,"type":"line","x":40,"y":16},`  
->`{"content":"linia8","color":-65536,"fontsize":8,"fonttype":1,"type":"line","x":40,"y":24},`  
->`{"content":"linia9","color":-65536,"fontsize":8,"fonttype":1,"type":"line","x":40,"y":32},`  
->`{"content":"linia10","color":-65536,"fontsize":8,"fonttype":1,"type":"line","x":0,"y":8},`  
->`{"content":"Linia11","color":65280,"fontsize":16,"fonttype":2,"type":"line","x":0,"y":0}]}`  
+>`{"ver":1,"elements":[{"type":"rectangle","color":127,"width":120,"height":220,"x":0,"y":0},`  
+>`{"type":"png","filename":"image.png","x":40,"y":8},`  
+>`{"type":"txt","content":"linia1","color":-65536,"fonttype":1,"x":40,"y":8},`  
+>`{"type":"txt","content":"linia2","color":-65536,"fonttype":1,"x":40,"y":16},`  
+>`{"type":"txt","content":"linia8","color":-65536,"fonttype":1,"x":40,"y":24},`  
+>`{"type":"txt","content":"linia9","color":-65536,"fonttype":1,"x":40,"y":32},`  
+>`{"type":"txt","content":"linia10","color":-65536,"fonttype":1,"x":0,"y":8},`  
+>`{"type":"txt","content":"Linia11","color":65280,"filename":"arialB16.fnt","fonttype":2,"x":0,"y":0}]}`  
 
 
 Przykładowy skrypt bash sterujący tablicą:
@@ -235,32 +232,78 @@ W trakcie transmisji na porcie danych tablica zwraca informacje o odebranych dan
  **Uwaga:** Sterowanie tablicą musi odbywać się synchronicznie (jednowątkowo). Ostatnia linijka powyższego skryptu nakazuje odczekanie 4 sekund przed ponowną transmisją. Ponieważ tablica led działa jednowątkowo nie możliwe jest obsługiwanie wielu transmisji jednocześnie, przed próbą ponownego połączenia konieczne jest odczekanie do zakończenia i zamknięcia poprzednich połączeń. Alternatywnie zamiast trzymać się sztywnego czasu opóźnienia, można analizować dane zwracane przez porty komend i danych celem oceny czy wszystkie dane zostały dostarczone i kolejna transmisja jest możliwa. Sterowanie Udp nie posiada tego ograniczenia.  
 
 ## Opis formatu strony json  w wersji 1
-1. Przykład strony json:  
-	`{"ver":1,"elements":[{"color":32,"width":96,"height":16,"type":"rectangle","x":0,"y":0},{"content":"2019-10-18 14:18:46","color":-65536,"fontsize":8,"fonttype":1,"type":"line","x":0,"y":0},{"content":"Tekst!","color":65280,"fontsize":16,"fonttype":2,"type":"line","x":0,"y":0}]}`
+1. Strona to innymi słowy zbiór elementów, które mają zostać wyświetlone na planszy led. Zapisana jest ona w formacie json tak aby poszczególne parametry i ich nazwy były samo wyjaśniające. Parametry, które wymagają dodatkowego wyjaśnienia opisane są poniżej. Przykład kodu:  
 
-2. Elementy  
-W tym momencie dostępne są tylko 2 rodzaje elementów strony:
-	* line - linia tekstu
-	* rectangle - prostokąt o wybranym rozmiarze i kolorze.
+`{
+	"ver": 1,
+	"elements": [
+        {
+            "type":"rectangle",
+            "color":32,
+            "width":96,
+            "height":16,
+            "x":0,
+            "y":0
+        }
+		{
+			"type": "png",
+			"filename": "image.png",
+			"x": 0,
+			"y": 0
+		},
+		{
+			"type": "txt",
+			"content": "Napis1",
+			"color": 65280,
+			"fonttype": 1,
+			"x": 24,
+			"y": 1
+		},
+		{
+			"type": "txt",
+			"content": "Napis2",
+			"color": 65280,
+			"fonttype": 2,
+            "filename":"arialB16.fnt",
+			"x": 24,
+			"y": 56
+		}
+	]
+}`
 
-3. Czcionka  
-	Jak widać w skrypcie json rodzaj czcionki określa się numerem, aktualnie można podać wartości od 0 do 3. Z czego dwie pierwsze czcionki wkompilowane są w firmware mają zawsze stałą wysokość 8px, pozostałe czcionki znajdują się na karcie pamięci w postaci plików, ten drugi rodzaj czcionek był generowany automatycznie przez program i w rozmiarach poniżej 10px może być nieczytelny.
-	* 0 czcionka regular wkompilowana w firmware jej wysokość wynosi zawsze 8px niezależnie od ustawienia parametru *fontsize*
-	* 1 czcionka **bold** wkompilowana w firmware jej wysokość wynosi zawsze 8px niezależnie od ustawienia parametru *fontsize*
-	* 2 czcionka arial regular, czcionka pobrana jest z karty pamięci z pliku arialXX.rgb.fnt, gdzie XX oznacza wielkość w px
-	* 3 czcionka arial bold, czcionka pobrana jest z karty pamięci z pliku arialBXX.rgb.fnt, gdzie XX oznacza wielkość w px
+2. Dostępne elementy  
+Aktualnie dostępne są 3 rodzaje elementów strony, rodzaj definiuje się w polu "type", elementy są nakładane warstwowo w kolejności podanej w kodzie.
+	* rectangle - prostokąt o wybranym rozmiarze i kolorze, element może być użyty do ustawienia koloru tła.
+	* png - bitmapa w formacie png, która musi być dostępna na karcie sd urządzenia.
+	* txt - linia tekstu
 
-	**Uwaga:** Jeśli na karcie SD brakuje wybranej czcionki zawsze zastępowana jest ona czcionką 0.
+3. Czcionka elementu tekst  
+Jak widać w skrypcie json rodzaj czcionki określa się numerem, należy wprowadzić wartości od 0 do 2. Dwie pierwsze czcionki 0,1 to czcionki wkompilowane w firmware mają zawsze stałą wysokość 8px i są dostępne niezależnie od zewnętrznej karty pamięci sd, pozostałe czcionki znajdują się na karcie pamięci w postaci plików, aby ich użyć należy podać "fonttype":2' oraz parametr "filename" czyli nazwę pliku czcionki, każdy plik czcionki to czcionka o stałym rozmiarze na przykład "arialB16.fnt" to arial bold 16px. 
+	* 0 czcionka regular wkompilowana w firmware jej wysokość wynosi zawsze 8px.
+	* 1 czcionka **bold** wkompilowana w firmware jej wysokość wynosi zawsze 8px.
+	* 2 czcionka pobrana jest z karty pamięci, należy podać nazwę pliku jako parametr *filename.
 
-4. Kolor  
+	**Uwaga:** Jeśli na karcie SD brakuje wybranej czcionki zawsze zastępowana jest ona czcionką 0. 
+
+	**Uwaga:** Wymagana karta pamięci SD nie powinna przekraczać rozmiaru 32gb, musi być sformatowana na FAT32.  
+
+	**Uwaga:** Uwaga, drugi rodzaj czcionek został wygenerowany automatycznie i w rozmiarach poniżej 10px czytelność może być zakłócona.  
+
+4. Kolor elementu tekst lub prostokąt  
 	**Uwaga:** kolor podany jest w zmiennej integer 32bit ARGB.   
-    * Przykładowo 0x00ff0000 przekonwertowany do zmiennej int oznacza kolor czerwony  
-    * Przykładowo 0x0000ff00 przekonwertowany do zmiennej int oznacza kolor zielony  
-    * Przykładowo 0x000000ff przekonwertowany do zmiennej int oznacza kolor niebieski  
+    * Przykładowo 0x00ff0000 przekonwertowany do zmiennej int oznacza kolor czerwony.  
+    * Przykładowo 0x0000ff00 przekonwertowany do zmiennej int oznacza kolor zielony.  
+    * Przykładowo 0x000000ff przekonwertowany do zmiennej int oznacza kolor niebieski.  
+  
+5. Bitmapa w formacie png  
+    Aby wyświetlić bitmapę, musi ona być on dostępna na karcie pamięci w postaci pliku w formacie png, rozdzielczość bitmapy nie powinna przekraczać rozdzielczości samej tablicy. W składni json element obrazu definiuje się za pomocą 4 składowych: 
+    * "type":"png" - określa że element jest typem bitmapy 
+    * "filename":"nazwapliku.png" - określa nazwę pliku do wyświetlenia
+    * "x":0 "y":0 - określa współrzędnie miejsca lewej górnej krawędzi bitmapy.
 
 
-W przypadku potrzeby dostępu do innych rodzajów czcionek proszę kontaktować się z autorem tekstu, adres znajduje się w stopce.
-Możliwe jest też wkompilowanie najczęściej używanej czcionki w firmware urządzenia celem optymalizacji i pominięcia karty pamięci sd, w takiej sytuacji również proszę o kontakt.
+
+Wszystkie aktualnie dostępne czciąki załączone są w tym repozytorium, w przypadku potrzeby dostępu do innych rodzajów czcionek proszę kontaktować się z działem technicznym firmy GilBT, adres znajduje się w stopce.
 
 # Kontakt
 
