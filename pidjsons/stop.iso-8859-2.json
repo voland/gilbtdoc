@@ -1,0 +1,14 @@
+{
+	"ver": 1,
+	"elements": [
+		{
+			"content": "STOP",
+			"color": -65536,
+			"fonttype": 2,
+			"filename": "arialB16.fnt",
+			"type": "txt",
+			"x": 2,
+			"y": 24
+		}
+	]
+}

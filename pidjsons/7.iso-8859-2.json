@@ -1,0 +1,23 @@
+{
+	"ver": 1,
+	"elements": [
+		{
+			"content": "7",
+			"color": -65536,
+			"fonttype": 2,
+			"filename": "arialB32.fnt",
+			"type": "txt",
+			"x": 2,
+			"y": 16
+		},
+		{
+			"content": "km/h",
+			"color": -65536,
+			"fonttype": 2,
+			"filename": "arialB12.fnt",
+			"type": "txt",
+			"x": 24,
+			"y": 24
+		}
+	]
+}

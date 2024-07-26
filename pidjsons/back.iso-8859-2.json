@@ -1,0 +1,19 @@
+{
+	"ver": 1,
+	"elements": [
+		{
+			"filename": "lowwer.png",
+			"type": "png",
+			"x": 0,
+			"y": 0
+		},
+		{
+			"content": "5m",
+			"color": -65536,
+			"fonttype": 1,
+			"type": "line",
+			"x": 24,
+			"y": 56
+		}
+	]
+}
