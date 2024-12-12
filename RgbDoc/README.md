@@ -134,9 +134,9 @@ Sterowanie dokonujemy wysyłając komendy do tablicy, używamy do tego połącze
 - Ustawienie zegara wewnętrznego:  
 	`TIME:2019-10-18 15:37:00!`  
 
-- Dhcp Wyłącz/Włącz 
-	`NM0`  
-	`NM1`  
+- Dhcp Włącz/Włącz 
+	`NM0`  //Adres dynamiczny z dhcp.
+	`NM1`  //Adres statyczny ustawiany komend.
 
 - Adres IP  
 	`MIP192.168.1.205`  
@@ -162,6 +162,10 @@ Sterowanie komendą netcat może wyglądać następująco:
 lub  
 
 `printf "*command*" | nc -u _addressip_ _port_`  
+
+lub  
+
+`echo "*command*" | nc -u _addressip_ _port_`  
 
 przykład 2 ( w tym przypadku plik data.txt zawiera treść z przykładu 1. Port sterowania udp jest stały i zawsze wynosi 8888.)  
 

@@ -134,8 +134,8 @@ Control is achieved by sending commands to the display using LAN and UDP/IP prot
 	`TIME:2019-10-18 15:37:00!`
 
 - Turning DHCP on/off (Net Mode):  
-	`NM0`  
-	`NM1`
+	`NM0`   // Dynamic address from dhcp
+	`NM1`   // Static address
 
 - IP Address:  
 	`IP192.168.1.205`
