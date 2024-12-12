@@ -134,8 +134,8 @@ Sterowanie dokonujemy wysyłając komendy do tablicy, używamy do tego połącze
 - Ustawienie zegara wewnętrznego:  
 	`TIME:2019-10-18 15:37:00!`  
 
-- Dhcp Włącz/Włącz 
-	`NM0`  //Adres dynamiczny z dhcp.
+- Dhcp Włącz/Włącz:  
+	`NM0`  //Adres dynamiczny z dhcp.  
 	`NM1`  //Adres statyczny ustawiany komend.
 
 - Adres IP  
