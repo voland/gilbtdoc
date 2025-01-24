@@ -3,7 +3,7 @@ Niniejsza dokumentacja  jest na etapie ciągłego udoskonalania. Jeżeli cokolwi
 
 # Sterowanie tablicą GilBT typ RGB poprzez połączenie szeregowe rs485 lub rs232 
 
-Komendy wysyłamy przez połączenie szeregowe ustawione jest na BAUD=115200, każda komenda musi być zakończona znakiem nowej linii \<CR\>.
+Komendy wysyłamy przez połączenie szeregowe ustawione jest na BAUD=115200, każda komenda oprócz AT+PAGE musi być zakończona znakiem nowej linii **\n**.
 
 ### Opis Komend AT wysyłanych do urządzenia:
 
@@ -66,7 +66,7 @@ Komendy wysyłamy przez połączenie szeregowe ustawione jest na BAUD=115200, ka
 #### Poniżej opisane komendy dotyczą ustawiania wyświetlanej treści. Aby wysłać treść należy wysłać komendę rozpoczęcia transmisji, wysłać dane w postaci JSON opisanej poniżej w punkcie "Opis formatu strony json  w wersji 1", następnie wysłać komendę zakończenia transmisji.
 
 
-- "AT+PAGE" Informuje urządzenie o rozpoczęciu nadawania danych do wyświetlania.
+- "AT+PAGE" Informuje urządzenie o rozpoczęciu nadawania danych do wyświetlania, ta komenda nie powinna być zakończona znakiem końca linii, cały łańcuch powinien wyglądać następująco: 'AT+PAGE<wysyłane dane>AT+EOD\n'.
     przykład:  
 	`AT+PAGE`  
 
@@ -271,6 +271,14 @@ W trakcie transmisji na porcie danych tablica zwraca informacje o odebranych dan
             "filename":"arialB16.fnt",
 			"x": 24,
 			"y": 56
+		},
+		{
+			"type": "txt",
+			"content": "napis czcionką impact 16",
+			"color": 65280,
+			"fonttype": 7,
+			"x": 24,
+			"y": 56
 		}
 	]
 }`
@@ -278,14 +286,18 @@ W trakcie transmisji na porcie danych tablica zwraca informacje o odebranych dan
 2. Dostępne elementy  
 Aktualnie dostępne są 3 rodzaje elementów strony, rodzaj definiuje się w polu "type", elementy są nakładane warstwowo w kolejności podanej w kodzie.
 	* rectangle - prostokąt o wybranym rozmiarze i kolorze, element może być użyty do ustawienia koloru tła.
-	* png - bitmapa w formacie png, która musi być dostępna na karcie sd urządzenia.
+	* png - bitmapa w formacie png, która musi być dostępna na karcie pamięci sd urządzenia.
 	* txt - linia tekstu
 
 3. Czcionka elementu tekst  
-Jak widać w skrypcie json rodzaj czcionki określa się numerem, należy wprowadzić wartości od 0 do 2. Dwie pierwsze czcionki 0,1 to czcionki wkompilowane w firmware mają zawsze stałą wysokość 8px i są dostępne niezależnie od zewnętrznej karty pamięci sd, pozostałe czcionki znajdują się na karcie pamięci w postaci plików, aby ich użyć należy podać "fonttype":2' oraz parametr "filename" czyli nazwę pliku czcionki, każdy plik czcionki to czcionka o stałym rozmiarze na przykład "arialB16.fnt" to arial bold 16px. 
+Jak widać w skrypcie json rodzaj czcionki określa się numerem, należy wprowadzić wartości od 0 do 7. Czcionki 0,1,4,5,6,7 to czcionki wkompilowane w firmware mają zawsze stałą wysokość i są dostępne niezależnie od zewnętrznej karty pamięci sd, pozostałe czcionki znajdują się na karcie pamięci w postaci plików, aby ich użyć należy podać "fonttype":2' oraz parametr "filename" czyli nazwę pliku czcionki, każdy plik czcionki to czcionka o stałym rozmiarze na przykład "arialB16.fnt" to arial bold 16px. 
 	* 0 czcionka regular wkompilowana w firmware jej wysokość wynosi zawsze 8px.
 	* 1 czcionka **bold** wkompilowana w firmware jej wysokość wynosi zawsze 8px.
-	* 2 czcionka pobrana jest z karty pamięci, należy podać nazwę pliku jako parametr *filename.
+	* 2 czcionka pobrana jest z karty pamięci, należy podać nazwę pliku jako parametr *filename*.
+	* 4 czcionka Arial14 wkompilowana w firmware jej wysokość wynosi zawsze 14px, nie wymaga karty pamięci.
+	* 5 czcionka Arial16 wkompilowana w firmware jej wysokość wynosi zawsze 16px, nie wymaga karty pamięci.
+	* 6 czcionka Impact14 wkompilowana w firmware jej wysokość wynosi zawsze 14px, nie wymaga karty pamięci.
+	* 7 czcionka Impact16 wkompilowana w firmware jej wysokość wynosi zawsze 16px, nie wymaga karty pamięci.
 
 	**Uwaga:** Jeśli na karcie SD brakuje wybranej czcionki zawsze zastępowana jest ona czcionką 0. 
 
