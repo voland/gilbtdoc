@@ -1,5 +1,5 @@
 # Wstęp
-Niniejsza dokumentacja  jest na etapie ciągłego udoskonalania. Jeżeli cokolwiek wydaje się być niejasne lub niekompletne proszę o kontakt. Dane kontaktowe umieszczone są na dole dokumentu.
+Niniejsza dokumentacja jest na etapie ciągłego udoskonalania. Jeżeli cokolwiek wydaje się być niezrozumiałe lub niekompletne proszę o kontakt. Dane kontaktowe umieszczone są na końcu dokumentu.
 
 # Sterowanie tablicą GilBT typ RGB poprzez połączenie szeregowe rs485 lub rs232 
 
@@ -291,13 +291,14 @@ Aktualnie dostępne są 3 rodzaje elementów strony, rodzaj definiuje się w pol
 
 3. Czcionka elementu tekst  
 Jak widać w skrypcie json rodzaj czcionki określa się numerem, należy wprowadzić wartości od 0 do 7. Czcionki 0,1,4,5,6,7 to czcionki wkompilowane w firmware mają zawsze stałą wysokość i są dostępne niezależnie od zewnętrznej karty pamięci sd, pozostałe czcionki znajdują się na karcie pamięci w postaci plików, aby ich użyć należy podać "fonttype":2' oraz parametr "filename" czyli nazwę pliku czcionki, każdy plik czcionki to czcionka o stałym rozmiarze na przykład "arialB16.fnt" to arial bold 16px. 
-	* 0 czcionka regular wkompilowana w firmware jej wysokość wynosi zawsze 8px.
-	* 1 czcionka **bold** wkompilowana w firmware jej wysokość wynosi zawsze 8px.
+	* 0 czcionka regular wkompilowana w firmware, jej wysokość wynosi zawsze 8px (nie wymaga karty pamięci).
+	* 1 czcionka **bold** wkompilowana w firmware, jej wysokość wynosi zawsze 8px (nie wymaga karty pamięci).
 	* 2 czcionka pobrana jest z karty pamięci, należy podać nazwę pliku jako parametr *filename*.
-	* 4 czcionka Arial14 wkompilowana w firmware jej wysokość wynosi zawsze 14px, nie wymaga karty pamięci.
-	* 5 czcionka Arial16 wkompilowana w firmware jej wysokość wynosi zawsze 16px, nie wymaga karty pamięci.
-	* 6 czcionka Impact14 wkompilowana w firmware jej wysokość wynosi zawsze 14px, nie wymaga karty pamięci.
-	* 7 czcionka Impact16 wkompilowana w firmware jej wysokość wynosi zawsze 16px, nie wymaga karty pamięci.
+	* 4 czcionka Arial14 wkompilowana w firmware, jej wysokość wynosi zawsze 14px (nie wymaga karty pamięci).
+	* 5 czcionka Arial16 wkompilowana w firmware, jej wysokość wynosi zawsze 16px (nie wymaga karty pamięci).
+	* 6 czcionka Impact14 wkompilowana w firmware, jej wysokość wynosi zawsze 14px (nie wymaga karty pamięci).
+	* 7 czcionka Impact16 wkompilowana w firmware, jej wysokość wynosi zawsze 16px (nie wymaga karty pamięci).
+	* 8 czcionka Arial20 wkompilowana w firmware, jej wysokość wynosi zawsze 20px (nie wymaga karty pamięci).
 
 	**Uwaga:** Jeśli na karcie SD brakuje wybranej czcionki zawsze zastępowana jest ona czcionką 0. 
 
