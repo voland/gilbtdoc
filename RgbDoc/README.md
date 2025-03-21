@@ -312,8 +312,8 @@ Jak widać w skrypcie json rodzaj czcionki określa się numerem, należy wprowa
     * Przykładowo 0x0000ff00 przekonwertowany do zmiennej int oznacza kolor zielony.  
     * Przykładowo 0x000000ff przekonwertowany do zmiennej int oznacza kolor niebieski.  
   
-5. Współrzędne elementu x, y. Reprezentują położenie elementu na tablicy gdzie punkt x=0, y=0 znajduje się w lewym górnym rogu tablicy. Do x możemy przypisać wartości specjalne, które mogą oznaczać automatyczne zorientowanie tekstu w linii poziomiej.  
-    * x = 60000, tekst ustawiony na środku tablicy w osi posiomej.  
+5. Współrzędne elementu x, y. Reprezentują położenie elementu na tablicy gdzie punkt x=0, y=0 znajduje się w lewym górnym rogu tablicy. Do x możemy przypisać wartości specjalne, które mogą oznaczać automatyczne zorientowanie tekstu w linii poziomej.  
+    * x = 60000, tekst ustawiony na środku tablicy w osi poziomej.  
     * x = 60001, tekst ustawiony z prawej strony tablicy w osi poziomej.  
     * x = 60002, tekst ustawiony z lewej strony tablicy w osi poziomej.  
   
