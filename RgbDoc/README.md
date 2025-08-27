@@ -183,7 +183,15 @@ Przykład wysłania komendy "RESET" do tablicy drogą tcp/ip przy pomocy termina
 #### Wysyłanie dowolnego pliku na kartę pamięci tablicy.  
  W celu wysłania pliku na tablicę led, podobnie jak ma to miejsce w przypadku komunikacji ftp, należy otworzyć dwa połączenia, połączenie do wysłania komendy oraz do wysłania danych. Po otwarciu portu komend *((UID) modulo 10000)+2*, i wydaniu polecenia `send` tablica otworzy port o numerze *((UID) modulo 10000)+3* na, który można wysłać dane, po czym należy zamknąć oba połączenia. 
 
-Jeżeli wysłany powyższą metodą plik będzie posiadał nazwę "rgb_cm4.frm" zostanie on potraktowany jako nowy firmware tablicy i tablica po odebraniu firmware zresetuje się celem zaktualizowania oprogramowania.
+ Wysłanie pliku na kartę pamięci uSD znajdującą się w sterowniku tablicy:  
+
+`printf "send image.png\n" | nc -u _addressip_ _port_`  
+
+ Usuwanie pliku z karty pamięci uSD znajdującej się w sterowniku tablicy:  
+
+`printf "del image.png\n" | nc -u _addressip_ _port_`  
+
+Wysyłając powyższą metodą jeżeli plik będzie posiadał nazwę "rgb_cm4.frm" zostanie on potraktowany jako nowy firmware tablicy i tablica po odebraniu firmware zresetuje się celem zaktualizowania oprogramowania.
 
 Przykładowy skrypt shell "flash.sh" do wysłania pliku firmware.
 
@@ -237,8 +245,7 @@ W trakcie transmisji na porcie danych tablica zwraca informacje o odebranych dan
 
 ## Opis formatu strony json  w wersji 1
 1. Strona to innymi słowy zbiór elementów, które mają zostać wyświetlone na planszy led. Zapisana jest ona w formacie json tak aby poszczególne parametry i ich nazwy były samo wyjaśniające. Parametry, które wymagają dodatkowego wyjaśnienia opisane są poniżej. Przykład kodu:  
-
-`{
+````{
 	"ver": 1,
 	"elements": [
         {
@@ -281,7 +288,7 @@ W trakcie transmisji na porcie danych tablica zwraca informacje o odebranych dan
 			"y": 56
 		}
 	]
-}`
+}```
 
 2. Dostępne elementy  
 Aktualnie dostępne są 3 rodzaje elementów strony, rodzaj definiuje się w polu "type", elementy są nakładane warstwowo w kolejności podanej w kodzie.
