@@ -125,7 +125,7 @@ Sterowanie dokonujemy wysyłając komendy do tablicy, używamy do tego połącze
 - Sterowanie treścią tablicy pakietami udp/ip ( dane do 1,5kb )  
 	JSONPAGE: <_content_>  
 	przykład1:  
-	`JSONPAGE:{"ver":1,"elements":[{"type":"rectangle","color":32,"width":96,"height":16,"x":0,"y":0},{"type":"png", "filename":"image.png", "x":0,"y":0},{"type":"txt","content":"2019-10-18 14:18:46","color":-65536,"fonttype":1,"x":0,"y":0},{"type":"txt","content":"Tekst!","color":65280,"fonttype":2, "filename":"arialB16.fnt", "x":0,"y":0}]}`
+	`JSONPAGE:{"ver":1,"elements":[{"type":"rectangle","color":0x000020,"width":96,"height":16,"x":0,"y":0},{"type":"png", "filename":"image.png", "x":0,"y":0},{"type":"txt","content":"2019-10-18 14:18:46","color":0xff0000,"fonttype":1,"x":0,"y":0},{"type":"txt","content":"Tekst!","color":0x00ff00,"fonttype":2, "filename":"arialB16.fnt", "x":0,"y":0}]}`
 
 - Zmiana kontrastu/kontrastu nocnego w skali od 1-4  
 	`Kontrast4!`  
@@ -210,14 +210,14 @@ Aby wysłać dane json przekraczające 1,5kb należy skorzystać z metody podobn
 
 Przykład pliku page.json:
 
->`{"ver":1,"elements":[{"type":"rectangle","color":127,"width":120,"height":220,"x":0,"y":0},`  
+>`{"ver":1,"elements":[{"type":"rectangle","color":0x7f,"width":120,"height":220,"x":0,"y":0},`  
 >`{"type":"png","filename":"image.png","x":40,"y":8},`  
->`{"type":"txt","content":"linia1","color":-65536,"fonttype":1,"x":40,"y":8},`  
->`{"type":"txt","content":"linia2","color":-65536,"fonttype":1,"x":40,"y":16},`  
->`{"type":"txt","content":"linia8","color":-65536,"fonttype":1,"x":40,"y":24},`  
->`{"type":"txt","content":"linia9","color":-65536,"fonttype":1,"x":40,"y":32},`  
->`{"type":"txt","content":"linia10","color":-65536,"fonttype":1,"x":0,"y":8},`  
->`{"type":"txt","content":"Linia11","color":65280,"filename":"arialB16.fnt","fonttype":2,"x":0,"y":0}]}`  
+>`{"type":"txt","content":"linia1","color":0xff0000,"fonttype":1,"x":40,"y":8},`  
+>`{"type":"txt","content":"linia2","color":0xff0000,"fonttype":1,"x":40,"y":16},`  
+>`{"type":"txt","content":"linia8","color":0xff0000,"fonttype":1,"x":40,"y":24},`  
+>`{"type":"txt","content":"linia9","color":0xff0000,"fonttype":1,"x":40,"y":32},`  
+>`{"type":"txt","content":"linia10","color":0xff0000,"fonttype":1,"x":0,"y":8},`  
+>`{"type":"txt","content":"Linia11","color":0x00ff00,"filename":"arialB16.fnt","fonttype":2,"x":0,"y":0}]}`  
 
 
 Przykładowy skrypt bash sterujący tablicą:
@@ -250,7 +250,7 @@ W trakcie transmisji na porcie danych tablica zwraca informacje o odebranych dan
 	"elements": [
         {
             "type":"rectangle",
-            "color":32,
+            "color":0x000020,
             "width":96,
             "height":16,
             "x":0,
@@ -265,7 +265,7 @@ W trakcie transmisji na porcie danych tablica zwraca informacje o odebranych dan
 		{
 			"type": "txt",
 			"content": "Napis1",
-			"color": 65280,
+			"color": 0x00ff00,
 			"fonttype": 1,
 			"x": 24,
 			"y": 1
@@ -273,7 +273,7 @@ W trakcie transmisji na porcie danych tablica zwraca informacje o odebranych dan
 		{
 			"type": "txt",
 			"content": "Napis2",
-			"color": 65280,
+			"color": 0x00ff00,
 			"fonttype": 2,
             "filename":"arialB16.fnt",
 			"x": 24,
@@ -282,7 +282,7 @@ W trakcie transmisji na porcie danych tablica zwraca informacje o odebranych dan
 		{
 			"type": "txt",
 			"content": "napis czcionką impact 16",
-			"color": 65280,
+			"color": 0x00ff00,
 			"fonttype": 7,
 			"x": 24,
 			"y": 56
@@ -314,10 +314,10 @@ Jak widać w skrypcie json rodzaj czcionki określa się numerem, należy wprowa
 	**Uwaga:** Uwaga, drugi rodzaj czcionek został wygenerowany automatycznie i w rozmiarach poniżej 10px czytelność może być zakłócona.  
 
 4. Kolor elementu tekst lub prostokąt  
-	**Uwaga:** kolor podany jest w zmiennej integer 32bit ARGB.   
-    * Przykładowo 0x00ff0000 przekonwertowany do zmiennej int oznacza kolor czerwony.  
-    * Przykładowo 0x0000ff00 przekonwertowany do zmiennej int oznacza kolor zielony.  
-    * Przykładowo 0x000000ff przekonwertowany do zmiennej int oznacza kolor niebieski.  
+	**Uwaga:** kolor podany jest w zmiennej integer 32bit ARGB, może być podany w formie decymalnej lub hexadecymalnej.   
+    * Przykładowo 0xff0000 przekonwertowany do zmiennej int oznacza kolor czerwony.  
+    * Przykładowo 0x00ff00 przekonwertowany do zmiennej int oznacza kolor zielony.  
+    * Przykładowo 0x0000ff przekonwertowany do zmiennej int oznacza kolor niebieski.  
   
 5. Współrzędne elementu x, y. Reprezentują położenie elementu na tablicy gdzie punkt x=0, y=0 znajduje się w lewym górnym rogu tablicy. Do x możemy przypisać wartości specjalne, które mogą oznaczać automatyczne zorientowanie tekstu w linii poziomej.  
     * x = 60000, tekst ustawiony na środku tablicy w osi poziomej.  
