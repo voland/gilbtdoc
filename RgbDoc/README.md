@@ -255,7 +255,7 @@ Aby uzyskać informację zwrotną o treści aktualnie załadowanej do pamięci u
 
 ## Opis formatu strony json  w wersji 1
 1. Strona to innymi słowy zbiór elementów, które mają zostać wyświetlone na planszy led. Zapisana jest ona w formacie json tak aby poszczególne parametry i ich nazwy były samo wyjaśniające. Parametry, które wymagają dodatkowego wyjaśnienia opisane są poniżej. Przykład kodu:  
-````{
+```{
 	"ver": 1,
 	"elements": [ 
         {
@@ -347,8 +347,18 @@ Jak widać w skrypcie json rodzaj czcionki określa się numerem, należy wprowa
     * "frames":[] - określa tablicę nazw plików oraz czasu wyświtlenia podany w dziesiętnych sekundy.
     * "x":0 "y":0 - określa współrzędnie miejsca lewej górnej krawędzi sekwencji.
 
-    `{ "type": "pngs", "frames": [ {"fn": "ima0.png", "t": 5}, {"fn": "ima1.png", "t": 5}, {"fn": "ima2.png", "t": 5}, {"fn": "ima3.png", "t": 5}, {"fn": "ima4.png", "t": 5} ], "x": 0, "y": 0 }`  
-
+``` {"type":"pngs", "frames":[
+		{"fn":"ani/imaging0.png", "t":5},
+		{"fn":"ani/imaging10.png", "t":5},
+		{"fn":"ani/imaging20.png", "t":5},
+		{"fn":"ani/imaging30.png", "t":5}, 
+		{"fn":"ani/imaging40.png", "t":5}, 
+		{"fn":"ani/imaging50.png", "t":5}, 
+		{"fn":"ani/imaging60.png", "t":5}, 
+		{"fn":"ani/imaging70.png", "t":5}, 
+		{"fn":"ani/imaging80.png", "t":5}],
+		"x":0,"y":0
+	} ```
 
 Wszystkie aktualnie dostępne czciąki załączone są w tym repozytorium, w przypadku potrzeby dostępu do innych rodzajów czcionek proszę kontaktować się z działem technicznym firmy GilBT, adres znajduje się w stopce.
 
