@@ -255,7 +255,7 @@ Aby uzyskać informację zwrotną o treści aktualnie załadowanej do pamięci u
 
 ## Opis formatu strony json  w wersji 1
 1. Strona to innymi słowy zbiór elementów, które mają zostać wyświetlone na planszy led. Zapisana jest ona w formacie json tak aby poszczególne parametry i ich nazwy były samo wyjaśniające. Parametry, które wymagają dodatkowego wyjaśnienia opisane są poniżej. Przykład kodu:  
-```{
+<pre> ```json {
 	"ver": 1,
 	"elements": [ 
         {
@@ -298,7 +298,7 @@ Aby uzyskać informację zwrotną o treści aktualnie załadowanej do pamięci u
 			"y": 56
 		}
 	]
-}```
+}```</pre>
 
 2. Dostępne elementy  
 Aktualnie dostępne są 4 rodzaje elementów strony, rodzaj definiuje się w polu "type", elementy są nakładane warstwowo w kolejności podanej w kodzie.
@@ -347,7 +347,7 @@ Jak widać w skrypcie json rodzaj czcionki określa się numerem, należy wprowa
     * "frames":[] - określa tablicę nazw plików oraz czasu wyświtlenia podany w dziesiętnych sekundy.
     * "x":0 "y":0 - określa współrzędnie miejsca lewej górnej krawędzi sekwencji.
 
-``` {"type":"pngs", "frames":[
+<pre> ```json {"type":"pngs", "frames":[
 		{"fn":"ani/imaging0.png", "t":5},
 		{"fn":"ani/imaging10.png", "t":5},
 		{"fn":"ani/imaging20.png", "t":5},
@@ -358,7 +358,7 @@ Jak widać w skrypcie json rodzaj czcionki określa się numerem, należy wprowa
 		{"fn":"ani/imaging70.png", "t":5}, 
 		{"fn":"ani/imaging80.png", "t":5}],
 		"x":0,"y":0
-	} ```
+	} ```</pre>
 
 Wszystkie aktualnie dostępne czciąki załączone są w tym repozytorium, w przypadku potrzeby dostępu do innych rodzajów czcionek proszę kontaktować się z działem technicznym firmy GilBT, adres znajduje się w stopce.
 
