@@ -178,7 +178,7 @@ Ponieważ sercem tablicy led jest mikrokontroler a te posiadają małe zasoby, t
 Wszystkie komendy, które można wysłać drogą udp/ip można również wysłać drogą tcp/ip aby to zrobić należy znać numer otwartego portu tcp danej tablicy, numer portu wyznacza się wedle wzoru ((UID) modulo 10000)+2. Przykładowo dla tablicy o znanym numerze uid 5308452 port wynosi: 8452+2 = 8454.  Podobnie jak w przypadku wysyłania drogą udp można korzystać bibliotek socketów dowolnego języka programowania lub wysłać dane przy pomocy programu netcat (komendy nc w terminalu).  
 
 Przykład wysłania komendy "RESET" do tablicy drogą tcp/ip przy pomocy terminala z powłoką bash:  
-`printf "RESET" | nc -w 2 -N 192.168.1.12 8454`  
+`printf "RESET\n" | nc -w 2 -N 192.168.1.12 8454`  
 
 #### Wysyłanie dowolnego pliku na kartę pamięci tablicy.  
  W celu wysłania pliku na tablicę led, podobnie jak ma to miejsce w przypadku komunikacji ftp, należy otworzyć dwa połączenia, połączenie do wysłania komendy oraz do wysłania danych. Po otwarciu portu komend *((UID) modulo 10000)+2*, i wydaniu polecenia `send` tablica otworzy port o numerze *((UID) modulo 10000)+3* na, który można wysłać dane, po czym należy zamknąć oba połączenia. 
@@ -191,18 +191,24 @@ Przykład wysłania komendy "RESET" do tablicy drogą tcp/ip przy pomocy termina
 
 `printf "del image.png\n" | nc -u _addressip_ _port_`  
 
+ Usuwanie wielu plików  z karty pamięci uSD znajdującej się w sterowniku tablicy:  
+
+`printf "del *.png\n" | nc -u _addressip_ _port_`  
+
 Wysyłając powyższą metodą jeżeli plik będzie posiadał nazwę "rgb_cm4.frm" zostanie on potraktowany jako nowy firmware tablicy i tablica po odebraniu firmware zresetuje się celem zaktualizowania oprogramowania.
 
-Przykładowy skrypt shell "flash.sh" do wysłania pliku firmware.
+Przykładowy skrypt shell "flash.sh" do wysłania pliku.
 
->`PORT1=$(($2+0)`  
->`PORT2=$(($2+1)`  
->`printf "send rgb_cm4.frm\n" | nc -w 5 -N $1 $PORT1 &`  
->`sleep `  
->`printf "Sending firmware file`  
->`nc -w 5 -N $1 $PORT2 < $`  
+>`PORT1=$(($2+0))`  
+>`PORT2=$(($2+1))`  
+>`#drop full path and get just filename`  
+>`FN=$(python -c "import os,sys; print(os.path.basename(sys.argv[1]))" $3)`  
+>`printf "send $FN\n" | ncat -w 5 $1 $PORT1 & `  
+>`sleep 4 `  
+>`printf "Sending $FN file"`  
+>`ncat -w 5 $1 $PORT2 < $3`  
 
-Wywołanie skryptu może wyglądać następująco:  
+W przypadku wysłania aktualizacji firmware wywołanie skryptu może wyglądać następująco:  
 >`./flash.sh 192.168.1.12 8454 rgb_cm4.frm`  
 
 #### Wysyłanie danych do wyświetlenia drogą tcp/ip
@@ -243,11 +249,15 @@ W trakcie transmisji na porcie danych tablica zwraca informacje o odebranych dan
 
  **Uwaga:** Sterowanie tablicą musi odbywać się synchronicznie (jednowątkowo). Ostatnia linijka powyższego skryptu nakazuje odczekanie 4 sekund przed ponowną transmisją. Ponieważ tablica led działa jednowątkowo nie możliwe jest obsługiwanie wielu transmisji jednocześnie, przed próbą ponownego połączenia konieczne jest odczekanie do zakończenia i zamknięcia poprzednich połączeń. Alternatywnie zamiast trzymać się sztywnego czasu opóźnienia, można analizować dane zwracane przez porty komend i danych celem oceny czy wszystkie dane zostały dostarczone i kolejna transmisja jest możliwa. Sterowanie Udp nie posiada tego ograniczenia.  
 
+Aby uzyskać informację zwrotną o treści aktualnie załadowanej do pamięci urządzenia używamy komendy 'JSON':
+
+`printf "JSON\n" | nc -w 5 _addressip_ _port_`  
+
 ## Opis formatu strony json  w wersji 1
 1. Strona to innymi słowy zbiór elementów, które mają zostać wyświetlone na planszy led. Zapisana jest ona w formacie json tak aby poszczególne parametry i ich nazwy były samo wyjaśniające. Parametry, które wymagają dodatkowego wyjaśnienia opisane są poniżej. Przykład kodu:  
 ````{
 	"ver": 1,
-	"elements": [
+	"elements": [ 
         {
             "type":"rectangle",
             "color":0x000020,
@@ -291,9 +301,10 @@ W trakcie transmisji na porcie danych tablica zwraca informacje o odebranych dan
 }```
 
 2. Dostępne elementy  
-Aktualnie dostępne są 3 rodzaje elementów strony, rodzaj definiuje się w polu "type", elementy są nakładane warstwowo w kolejności podanej w kodzie.
+Aktualnie dostępne są 4 rodzaje elementów strony, rodzaj definiuje się w polu "type", elementy są nakładane warstwowo w kolejności podanej w kodzie.
 	* rectangle - prostokąt o wybranym rozmiarze i kolorze, element może być użyty do ustawienia koloru tła.
 	* png - bitmapa w formacie png, która musi być dostępna na karcie pamięci sd urządzenia.
+	* pngs - sekwencja bitmap w formacie png.
 	* txt - linia tekstu
 
 3. Czcionka elementu tekst  
@@ -315,9 +326,9 @@ Jak widać w skrypcie json rodzaj czcionki określa się numerem, należy wprowa
 
 4. Kolor elementu tekst lub prostokąt  
 	**Uwaga:** kolor podany jest w zmiennej integer 32bit ARGB, może być podany w formie decymalnej lub hexadecymalnej.   
-    * Przykładowo 0xff0000 przekonwertowany do zmiennej int oznacza kolor czerwony.  
-    * Przykładowo 0x00ff00 przekonwertowany do zmiennej int oznacza kolor zielony.  
-    * Przykładowo 0x0000ff przekonwertowany do zmiennej int oznacza kolor niebieski.  
+    * Przykładowo 0xff0000 oznacza kolor czerwony.  
+    * Przykładowo 0x00ff00 oznacza kolor zielony.  
+    * Przykładowo 0x0000ff oznacza kolor niebieski.  
   
 5. Współrzędne elementu x, y. Reprezentują położenie elementu na tablicy gdzie punkt x=0, y=0 znajduje się w lewym górnym rogu tablicy. Do x możemy przypisać wartości specjalne, które mogą oznaczać automatyczne zorientowanie tekstu w linii poziomej.  
     * x = 60000, tekst ustawiony na środku tablicy w osi poziomej.  
@@ -330,9 +341,19 @@ Jak widać w skrypcie json rodzaj czcionki określa się numerem, należy wprowa
     * "filename":"nazwapliku.png" - określa nazwę pliku do wyświetlenia
     * "x":0 "y":0 - określa współrzędnie miejsca lewej górnej krawędzi bitmapy.
 
+6. Bitmapy w formacie png  
+    Aby wyświetlić sekwencję bitmap (mini animajcę). W składni json element obrazu definiuje się za pomocą 4 składowych: 
+    * "type":"pngs" - określa że element jest typem sekwencji bitmap.  
+    * "frames":[] - określa tablicę nazw plików oraz czasu wyświtlenia podany w dziesiętnych sekundy.
+    * "x":0 "y":0 - określa współrzędnie miejsca lewej górnej krawędzi sekwencji.
+
+    `{ "type": "pngs", "frames": [ {"fn": "ima0.png", "t": 5}, {"fn": "ima1.png", "t": 5}, {"fn": "ima2.png", "t": 5}, {"fn": "ima3.png", "t": 5}, {"fn": "ima4.png", "t": 5} ], "x": 0, "y": 0 }`  
 
 
 Wszystkie aktualnie dostępne czciąki załączone są w tym repozytorium, w przypadku potrzeby dostępu do innych rodzajów czcionek proszę kontaktować się z działem technicznym firmy GilBT, adres znajduje się w stopce.
+
+## Inicjacyjna treść tablicy
+Jeżeli na karcie pamięci urządzenia znajduje się plik o nazwie "init.json", wóczas zawartość tego pliku zostanie wykożystana jako treść tablicy pokazywaną zaraz po uruchomieniu.
 
 # Kontakt
 
