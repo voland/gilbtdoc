@@ -321,11 +321,11 @@ Jak widać w skrypcie json rodzaj czcionki określa się numerem, należy wprowa
 
 Wszystkie aktualnie dostępne czciąki załączone są w tym repozytorium, w przypadku potrzeby dostępu do innych rodzajów czcionek proszę kontaktować się z działem technicznym firmy GilBT, adres znajduje się w stopce.
 
-	**Uwaga:** Jeśli na karcie SD brakuje wybranej czcionki zawsze zastępowana jest ona czcionką 0. 
+**Uwaga:** Jeśli na karcie SD brakuje wybranej czcionki zawsze zastępowana jest ona czcionką 0. 
 
-	**Uwaga:** Wymagana karta pamięci SD nie powinna przekraczać rozmiaru 32gb, musi być sformatowana na FAT32.  
+**Uwaga:** Wymagana karta pamięci SD nie powinna przekraczać rozmiaru 32gb, musi być sformatowana na FAT32.  
 
-	**Uwaga:** Uwaga, drugi rodzaj czcionek został wygenerowany automatycznie i w rozmiarach poniżej 10px czytelność może być zakłócona.  
+**Uwaga:** Uwaga, drugi rodzaj czcionek został wygenerowany automatycznie i w rozmiarach poniżej 10px czytelność może być zakłócona.  
 
 4. Kolor elementu tekst lub prostokąt  
 	**Uwaga:** kolor podany jest w zmiennej integer 32bit ARGB, może być podany w formie decymalnej lub hexadecymalnej.   
