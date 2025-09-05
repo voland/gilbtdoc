@@ -175,7 +175,7 @@ przykład 2 ( w tym przypadku plik data.txt zawiera treść z przykładu 1. Port
 
 Ponieważ sercem tablicy led jest mikrokontroler a te posiadają małe zasoby, tablica nie przyjmuje pakietów udp wielkości powyżej 1,5kb jeżeli dane json page przekraczają tą wartość należy je wysłać poprzez połączenie tcp/ip.  
 
-Wszystkie komendy, które można wysłać drogą udp/ip można również wysłać drogą tcp/ip aby to zrobić należy znać numer otwartego portu tcp danej tablicy, numer portu wyznacza się wedle wzoru ((UID) modulo 10000)+2. Przykładowo dla tablicy o znanym numerze uid 5308452 port wynosi: 8452+2 = 8454.  Podobnie jak w przypadku wysyłania drogą udp można korzystać bibliotek socketów dowolnego języka programowania lub wysłać dane przy pomocy programu netcat (komendy nc w terminalu).  
+Wszystkie komendy, które można wysłać drogą udp/ip można również wysłać drogą tcp/ip, dodatkowo przez połączenie można wysyłać dodatkowe komendy związane z obsługą plików "SEND" "DEL" "LIST" oraz komendę zwracającą informacje "JSON". Aby wykonać połączenie należy znać numer otwartego portu tcp danej tablicy, numer portu wyznacza się wedle wzoru ((UID) modulo 10000)+2. Przykładowo dla tablicy o znanym numerze uid 5308452 port wynosi: 8452+2 = 8454.  Podobnie jak w przypadku wysyłania drogą udp można korzystać bibliotek socketów dowolnego języka programowania lub wysłać dane przy pomocy programu netcat (komendy nc w terminalu).  
 
 Przykład wysłania komendy "RESET" do tablicy drogą tcp/ip przy pomocy terminala z powłoką bash:  
 `printf "RESET\n" | nc -w 2 -N 192.168.1.12 8454`  
@@ -187,6 +187,8 @@ Przykład wysłania komendy "RESET" do tablicy drogą tcp/ip przy pomocy termina
 
 `printf "send image.png\n" | nc -u _addressip_ _port_`  
 
+Wysyłając powyższą metodą jeżeli plik będzie posiadał nazwę "rgb_cm4.frm" zostanie on potraktowany jako nowy firmware tablicy i tablica po odebraniu firmware zresetuje się celem zaktualizowania oprogramowania.
+
  Usuwanie pliku z karty pamięci uSD znajdującej się w sterowniku tablicy:  
 
 `printf "del image.png\n" | nc -u _addressip_ _port_`  
@@ -194,8 +196,6 @@ Przykład wysłania komendy "RESET" do tablicy drogą tcp/ip przy pomocy termina
  Usuwanie wielu plików  z karty pamięci uSD znajdującej się w sterowniku tablicy:  
 
 `printf "del *.png\n" | nc -u _addressip_ _port_`  
-
-Wysyłając powyższą metodą jeżeli plik będzie posiadał nazwę "rgb_cm4.frm" zostanie on potraktowany jako nowy firmware tablicy i tablica po odebraniu firmware zresetuje się celem zaktualizowania oprogramowania.
 
 Przykładowy skrypt shell "flash.sh" do wysłania pliku.
 
@@ -319,6 +319,8 @@ Jak widać w skrypcie json rodzaj czcionki określa się numerem, należy wprowa
 	* 7 czcionka Impact16 wkompilowana w firmware, jej wysokość wynosi zawsze 16px (nie wymaga karty pamięci).
 	* 8 czcionka Arial20 wkompilowana w firmware, jej wysokość wynosi zawsze 20px (nie wymaga karty pamięci).
 
+Wszystkie aktualnie dostępne czciąki załączone są w tym repozytorium, w przypadku potrzeby dostępu do innych rodzajów czcionek proszę kontaktować się z działem technicznym firmy GilBT, adres znajduje się w stopce.
+
 	**Uwaga:** Jeśli na karcie SD brakuje wybranej czcionki zawsze zastępowana jest ona czcionką 0. 
 
 	**Uwaga:** Wymagana karta pamięci SD nie powinna przekraczać rozmiaru 32gb, musi być sformatowana na FAT32.  
@@ -343,9 +345,9 @@ Jak widać w skrypcie json rodzaj czcionki określa się numerem, należy wprowa
     * "x":0 "y":0 - określa współrzędnie miejsca lewej górnej krawędzi bitmapy.
 
 6. Bitmapy w formacie png  
-    Aby wyświetlić sekwencję bitmap (mini animajcę). W składni json element obrazu definiuje się za pomocą 4 składowych: 
+    Aby wyświetlić sekwencję bitmap (mini animację). W składni json element obrazu definiuje się za pomocą 4 składowych: 
     * "type":"pngs" - określa że element jest typem sekwencji bitmap.  
-    * "frames":[] - określa tablicę nazw plików oraz czasu wyświtlenia podany w dziesiętnych sekundy.
+    * "frames":[] - określa tablicę nazw plików oraz czasu wyświetlenia podany w dziesiętnych sekundy.
     * "x":0 "y":0 - określa współrzędnie miejsca lewej górnej krawędzi sekwencji.
 
 <pre> ` {"type":"pngs", "frames":[
@@ -361,10 +363,8 @@ Jak widać w skrypcie json rodzaj czcionki określa się numerem, należy wprowa
 		"x":0,"y":0
 	} ` </pre>
 
-Wszystkie aktualnie dostępne czciąki załączone są w tym repozytorium, w przypadku potrzeby dostępu do innych rodzajów czcionek proszę kontaktować się z działem technicznym firmy GilBT, adres znajduje się w stopce.
-
 ## Inicjacyjna treść tablicy
-Jeżeli na karcie pamięci urządzenia znajduje się plik o nazwie "init.json", wóczas zawartość tego pliku zostanie wykożystana jako treść tablicy pokazywaną zaraz po uruchomieniu.
+Jeżeli na karcie pamięci urządzenia znajduje się plik o nazwie "init.json", wóczas zawartość tego pliku zostanie wykorzystana jako treść tablicy pokazywaną zaraz po uruchomieniu.
 
 # Kontakt
 
