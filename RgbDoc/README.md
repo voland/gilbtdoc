@@ -3,7 +3,7 @@ Niniejsza dokumentacja jest na etapie ciągłego udoskonalania. Jeżeli cokolwie
 
 # Sterowanie tablicą GilBT typ RGB poprzez połączenie szeregowe rs485 lub rs232 
 
-Komendy wysyłamy przez połączenie szeregowe ustawione jest na BAUD=115200, każda komenda oprócz AT+PAGE musi być zakończona znakiem nowej linii **\n**.
+Komendy wysyłamy przez połączenie szeregowe ustawione jest na BAUD=115200, każda komenda oprócz AT+PAGE musi być zakończona znakiem nowej linii **\n**. Dane tekstowe zawierające polskie znaki powinny być kodowane za pomocą iso-8859-2.
 
 ### Opis Komend AT wysyłanych do urządzenia:
 
