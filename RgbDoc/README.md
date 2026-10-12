@@ -118,7 +118,7 @@ Przykład odczytania loga dla tablicy o UID=5308452
 
 ## Sterowanie tablicą GilBT typ RGB poprzez połączenie udp/ip 
 
-Sterowanie dokonujemy wysyłając komendy do tablicy, używamy do tego połączenia lan oraz protokołu udp/ip. W dowolnym języku programowania możemy utworzyć takie połączenie używając tak zwanych socketów. Możemy też użyć komendy "nc" (programu netcat) w terminalu linux oraz windows do wysyłania komend bez tworzenia żadnego dodatkowego oprogramowania.
+Sterowanie dokonujemy wysyłając komendy do tablicy, używamy do tego połączenia lan oraz protokołu udp/ip. W dowolnym języku programowania możemy utworzyć takie połączenie używając tak zwanych socketów. Możemy też użyć komendy "nc" (programu netcat) w terminalu linux oraz windows do wysyłania komend bez tworzenia żadnego dodatkowego oprogramowania. Dane tekstowe zawierające polskie znaki powinny być kodowane za pomocą iso-8859-2.
 
 ### Opis Komend wysyłanych do urządzenia:
 
